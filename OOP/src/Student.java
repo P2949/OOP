@@ -4,6 +4,7 @@ public class Student extends Person {
     private String studentID;
     private Program program;
     private int yearOfStudy;
+    private char labGroup;
 
     public Student(String name, int age, String studentID, Program program, int yearOfStudy) {
         super(name, age);
@@ -34,5 +35,13 @@ public class Student extends Person {
 
     public void setYearOfStudy(int yearOfStudy) {
         this.yearOfStudy = yearOfStudy;
+    }
+
+    public char getLabGroup() {
+        return labGroup;
+    }
+
+    public void setLabGroup(char labGroup) {
+        this.labGroup = labGroup;
     }
 }
