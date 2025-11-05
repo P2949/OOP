@@ -11,9 +11,8 @@ public class Lecturer extends Staff {
     }
 
     public List<Module> getModulesTaught() {
-        List<Module> modulesTaughttemp = new LinkedList<>();
-        modulesTaughttemp.addAll(modulesTaught);
-        return modulesTaughttemp;
+        return new LinkedList<>(modulesTaught);
+
     }
 
     public void addModuleTaught(Module module) {

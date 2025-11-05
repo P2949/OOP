@@ -60,7 +60,6 @@ public class Module {
     }
 
     public List<Student> getEnrolledStudents() {
-
-        return new LinkedList<Student>(enrolledStudents);
+        return new LinkedList<>(enrolledStudents);
     }
 }
