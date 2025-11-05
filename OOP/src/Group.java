@@ -5,12 +5,11 @@ import java.util.List;
 public class Group {
 
     private char groupID;
-    private Module module;
+    private Session Type;
     private List<Student> students = new ArrayList<>();
 
-    public Group(char groupID, Module module, List<Student> students) {
+    public Group(char groupID, List<Student> students) {
         this.groupID = groupID;
-        this.module = module;
         this.students = students;
     }
 
@@ -21,4 +20,17 @@ public class Group {
     public void setGroupID(char groupID) {
         this.groupID = groupID;
     }
+
+    public void setAsLab(Lab Type) {
+        this.Type = Type;
+    }
+
+    public void setAsTut(Tut Type) {
+        this.Type = Type;
+    }
+
+    public void setAsLec(Lec Type) {
+        this.Type = Type;
+    }
+
 }
