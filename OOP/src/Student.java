@@ -1,23 +1,24 @@
+import java.time.LocalDate;
 
 public class Student extends Person {
 
-    private String studentID;
+    private int studentID;
     private Program program;
     private int yearOfStudy;
     private char labGroup;
 
     public Student(String name, int age, String studentID, Program program, int yearOfStudy) {
         super(name, age);
-        this.studentID = studentID;
+        this.studentID = LocalDate.now().getYear();
         this.program = program;
         this.yearOfStudy = yearOfStudy;
     }
 
-    public String getStudentID() {
+    public int getStudentID() {
         return studentID;
     }
 
-    public void setStudentID(String studentID) {
+    public void setStudentID(int studentID) {
         this.studentID = studentID;
     }
 

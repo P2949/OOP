@@ -12,7 +12,6 @@ public class Lecturer extends Staff {
 
     public List<Module> getModulesTaught() {
         return new LinkedList<>(modulesTaught);
-
     }
 
     public void addModuleTaught(Module module) {
