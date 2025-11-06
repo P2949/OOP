@@ -8,14 +8,11 @@ import java.util.List;
 
 public class Program {
 
-    private final List<Module> modules = new LinkedList<>();
+    private List<Module> modules = new LinkedList<>();
     private int totalModules;
 
     public Program(int totalModules) {
         this.totalModules = totalModules;
-        while (modules.size() < totalModules) {
-            modules.add(null);
-        }
     }
 
     public int getTotalModules() {
@@ -32,6 +29,10 @@ public class Program {
 
     public void addModuleTaught(Module module) {
         this.modules.add(module);
+    }
+
+    public void setModulesTaught(List<Module> modules) {
+        this.modules = new LinkedList<>(modules);
     }
 
 }
