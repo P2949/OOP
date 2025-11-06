@@ -8,12 +8,18 @@ public class Group {
     private Session Type;
     private List<Student> students = new ArrayList<>();
 
-    public Group(char groupID, List<Student> students) {
+    public Group(char groupID, Session type) {
         this.groupID = groupID;
-        this.students = students;
+        setType(type);
     }
 
-    public void setType(Session type) {
+    public Group(char groupID, Session type, List<Student> students) {
+        this.groupID = groupID;
+        setType(type);
+        this.students = new ArrayList<>(students);
+    }
+
+    private void setType(Session type) {
         if (type instanceof Lab || type instanceof Tut || type instanceof Lec) {
             switch (type.getClass().getSimpleName()) {
                 case "Lab" ->
@@ -30,6 +36,22 @@ public class Group {
         }
     }
 
+    public Session getType() {
+        switch (Type.getClass().getSimpleName()) {
+            case "Lab" -> {
+                return new Lab(Type.getModule(), Type.getLecturer());
+            }
+            case "Tut" -> {
+                return new Tut(Type.getModule(), Type.getLecturer());
+            }
+            case "Lec" -> {
+                return new Lec(Type.getModule(), Type.getLecturer());
+            }
+            default ->
+                throw new AssertionError();
+        }
+    }
+
     public char getGroupID() {
         return groupID;
     }
@@ -38,16 +60,32 @@ public class Group {
         this.groupID = groupID;
     }
 
+    public List<Student> getStudents() {
+        return new ArrayList<>(students);
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = new ArrayList<>(students);
+    }
+
+    public void AddStudent(Student student) {
+        this.students.add(student);
+    }
+
+    public void RemoveStudent(Student student) {
+        this.students.remove(student);
+    }
+
     private void setAsLab(Lab Type) {
-        this.Type = (Lab) Type;
+        this.Type = new Lab(Type.getModule(), Type.getLecturer());
     }
 
     private void setAsTut(Tut Type) {
-        this.Type = (Tut) Type;
+        this.Type = new Tut(Type.getModule(), Type.getLecturer());
     }
 
     private void setAsLec(Lec Type) {
-        this.Type = (Lec) Type;
+        this.Type = new Lec(Type.getModule(), Type.getLecturer());
     }
 
 }

@@ -1,4 +1,6 @@
+
 abstract class Session {
+
     private Module module;
     private Lecturer lecturer;
 
@@ -18,6 +20,7 @@ abstract class Session {
     public Module getModule() {
         return module;
     }
+
     public void setModule(Module module) {
         this.module = module;
     }
