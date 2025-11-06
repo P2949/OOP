@@ -8,12 +8,15 @@ import java.util.List;
 public class Group {
 
     private char groupID;
-    private Session Type;
+    private Session type;
     private List<Student> students = new ArrayList<>();
 
     public Group(char groupID, Session type) {
         this.groupID = groupID;
         setType(type);
+        type.getModule().addSession(this);
+        type.getRoom().addSession(this);
+        type.getLecturer().getModulesTaught().add(type.getModule());
     }
 
     public Group(char groupID, Session type, List<Student> students) {
@@ -40,15 +43,15 @@ public class Group {
     }
 
     public Session getType() {
-        switch (Type.getClass().getSimpleName()) {
+        switch (type.getClass().getSimpleName()) {
             case "Lab" -> {
-                return new Lab(Type.getModule(), Type.getLecturer(), Type.getRoom());
+                return new Lab(type.getModule(), type.getLecturer(), type.getRoom());
             }
             case "Tut" -> {
-                return new Tut(Type.getModule(), Type.getLecturer(), Type.getRoom());
+                return new Tut(type.getModule(), type.getLecturer(), type.getRoom());
             }
             case "Lec" -> {
-                return new Lec(Type.getModule(), Type.getLecturer(), Type.getRoom());
+                return new Lec(type.getModule(), type.getLecturer(), type.getRoom());
             }
             default ->
                 throw new AssertionError();
@@ -69,26 +72,41 @@ public class Group {
 
     public void setStudents(List<Student> students) {
         this.students = new ArrayList<>(students);
+        Session tempType = type;
+        List<Student> tempStudents = new ArrayList<>(this.students);
+        tempType.getModule().setEnrolledStudents(tempStudents);
+        setType(type);
     }
 
-    public void AddStudent(Student student) {
+    public void addStudent(Student student) {
+        type.getModule().addEnrolledStudent(student);
         this.students.add(student);
     }
 
-    public void RemoveStudent(Student student) {
+    public void removeStudent(Student student) {
+        type.getModule().removeEnrolledStudent(student);
         this.students.remove(student);
     }
 
-    private void setAsLab(Lab Type) {
-        this.Type = new Lab(Type.getModule(), Type.getLecturer(), Type.getRoom());
+    private void setAsLab(Lab type) {
+        this.type = new Lab(type.getModule(), type.getLecturer(), type.getRoom());
+        type.getRoom().addSession(this);
+        type.getModule().addSession(this);
+        type.getLecturer().addModuleTaught(type.getModule());
     }
 
-    private void setAsTut(Tut Type) {
-        this.Type = new Tut(Type.getModule(), Type.getLecturer(), Type.getRoom());
+    private void setAsTut(Tut type) {
+        this.type = new Tut(type.getModule(), type.getLecturer(), type.getRoom());
+        type.getRoom().addSession(this);
+        type.getModule().addSession(this);
+        type.getLecturer().addModuleTaught(type.getModule());
     }
 
-    private void setAsLec(Lec Type) {
-        this.Type = new Lec(Type.getModule(), Type.getLecturer(), Type.getRoom());
+    private void setAsLec(Lec type) {
+        this.type = new Lec(type.getModule(), type.getLecturer(), type.getRoom());
+        type.getRoom().addSession(this);
+        type.getModule().addSession(this);
+        type.getLecturer().addModuleTaught(type.getModule());
     }
 
 }

@@ -14,6 +14,7 @@ abstract class Session {
         this.module = module;
         this.lecturer = lecturer;
         this.room = room;
+        this.lecturer.addModuleTaught(this.module);
     }
 
     public Room getRoom() {

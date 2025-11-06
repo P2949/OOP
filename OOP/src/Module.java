@@ -14,7 +14,7 @@ public class Module {
     private String moduleCode;
     private String moduleName;
     private Lecturer lecturer;
-    private List<Session> sessions = new LinkedList<>();
+    private List<Group> sessions = new LinkedList<>();
     private List<Student> enrolledStudents = new LinkedList<>();
 
     public Module(String moduleCode, String moduleName, Lecturer lecturer, int lengthInWeeks, int startWeek) {
@@ -23,6 +23,7 @@ public class Module {
         this.lecturer = lecturer;
         this.lengthInWeeks = lengthInWeeks;
         this.startWeek = startWeek;
+        this.lecturer.addModuleTaught(this);
     }
 
     public String getModuleCode() {
@@ -50,7 +51,9 @@ public class Module {
     }
 
     public void setLecturer(Lecturer lecturer) {
+        this.lecturer.removeModuleTaught(this);
         this.lecturer = new Lecturer(lecturer.getName(), lecturer.getAge(), lecturer.getStaffID(), lecturer.getDepartment());
+        this.lecturer.addModuleTaught(this);
     }
 
     public int getLengthInWeeks() {
@@ -85,31 +88,35 @@ public class Module {
         this.enrolledStudents = new LinkedList<>(students);
     }
 
-    public List<Session> getSessions() {
+    public List<Group> getSessions() {
         return new LinkedList<>(sessions);
     }
 
-    public void setSessions(List<Session> sessions) {
-        for (Session session : sessions) {
-            if (this.lecturer.getModulesTaught().contains(session.getModule()) == false) {
-                throw new IllegalArgumentException("Lecturer does not teach the module for this session.");
-            } else if (this.moduleCode.equals(session.getModule().getModuleCode()) == false) {
+    public void setSessions(List<Group> sessions) {
+        for (Group group : sessions) {
+            for (Module mod : this.lecturer.getModulesTaught()) {
+                if (!(mod.getModuleCode().equals(this.moduleCode) && mod.getModuleName().equals(this.moduleName))) {
+                    throw new IllegalArgumentException("Session module does not match this module.");
+                } else if (!(mod.getLecturer().equals(this.lecturer))) {
+                    throw new IllegalArgumentException("Lecturer does not teach the module for this session.");
+                }
+            }
+            this.sessions = new LinkedList<>(sessions);
+        }
+    }
+
+    public void addSession(Group group) {
+        for (Module mod : this.lecturer.getModulesTaught()) {
+            if (!(mod.getModuleCode().equals(this.moduleCode) && mod.getModuleName().equals(this.moduleName))) {
                 throw new IllegalArgumentException("Session module does not match this module.");
+            } else if (!(mod.getLecturer().getStaffID().matches(this.lecturer.getStaffID()))) {
+                throw new IllegalArgumentException("Lecturer does not teach the module for this session.");
             }
         }
-        this.sessions = new LinkedList<>(sessions);
+        this.sessions.add(group);
     }
 
-    public void addSession(Session session) {
-        if (this.lecturer.getModulesTaught().contains(session.getModule()) == false) {
-            throw new IllegalArgumentException("Lecturer does not teach the module for this session.");
-        } else if (this.moduleCode.equals(session.getModule().getModuleCode()) == false) {
-            throw new IllegalArgumentException("Session module does not match this module.");
-        }
-        this.sessions.add(session);
-    }
-
-    public void removeSession(Session session) {
-        this.sessions.remove(session);
+    public void removeSession(Group group) {
+        this.sessions.remove(group);
     }
 }

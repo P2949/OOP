@@ -55,6 +55,9 @@ public class Student extends Person {
         }
         Program temp = new Program(program.getTotalModules());
         temp.setModulesTaught(program.getModulesTaught());
+        for (Module module : temp.getModulesTaught()) {
+            module.addEnrolledStudent(this);
+        }
         this.program = temp;
     }
 
@@ -71,10 +74,19 @@ public class Student extends Person {
     }
 
     public void addGroup(Group group) {
-        if (!this.groups.contains(group) && group.getType().getModule().getEnrolledStudents().contains(this)) {
-            this.groups.add(group);
-        } else {
-            throw new IllegalArgumentException("Cannot add group: either already enrolled or not enrolled in the module.");
+        for (Student s : group.getType().getModule().getEnrolledStudents()) {
+            if (s.getStudentID() == this.studentID) {
+                for (Group g : s.getGroups()) {
+                    if (g.getGroupID() == group.getGroupID()) {
+                        throw new IllegalArgumentException("Cannot add group: already on that group.");
+                    } else {
+                        this.groups.add(group);
+                        break;
+                    }
+                }
+            } else {
+                throw new IllegalArgumentException("Cannot add group: either already on that group or not enrolled in the module.");
+            }
         }
     }
 
@@ -98,5 +110,19 @@ public class Student extends Person {
 
     public int getStudentCount() {
         return studentCounter;
+    }
+
+    public static void main(String[] args) {
+        Program p1 = new Program(3);
+        Room r1 = new Room("Lab Room 1", 30, "classroom", "CS Building");
+        Lecturer l1 = new Lecturer("Dr. Smith", 45, "L001", "Computer Science");
+        Module m1 = new Module("CS101", "Intro to CS", l1, 12, 1);
+        p1.addModuleTaught(m1);
+        Student s1 = new Student("Alice", 20, p1, 1);
+        m1.addEnrolledStudent(s1);
+        Lab l = new Lab(m1, l1, r1);
+        Group g1 = new Group('A', l);
+        s1.addGroup(g1);
+        System.out.println("Student " + s1.getName() + " enrolled in program with " + s1.getProgram().getModulesTaught().size() + " module(s).");
     }
 }

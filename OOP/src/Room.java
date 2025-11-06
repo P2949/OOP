@@ -3,6 +3,9 @@
  * 
  * Represents a room in a building with attributes such as room number, capacity, occupancy status, type, and building name.
  */
+import java.util.LinkedList;
+import java.util.List;
+
 public class Room {
 
     private String roomNumber;
@@ -10,6 +13,7 @@ public class Room {
     private boolean isOccupied;
     private String type;
     private String building;
+    private List<Group> sessions = new LinkedList<>();
 
     public Room(String roomNumber, int capacity, String type, String building) {
         this.roomNumber = roomNumber;
@@ -59,4 +63,15 @@ public class Room {
         this.building = building;
     }
 
+    public List<Group> getSessions() {
+        return new LinkedList<>(sessions);
+    }
+
+    public void addSession(Group session) {
+        this.sessions.add(session);
+    }
+
+    public void removeSession(Group session) {
+        this.sessions.remove(session);
+    }
 }

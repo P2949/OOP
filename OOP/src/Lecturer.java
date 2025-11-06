@@ -22,4 +22,8 @@ public class Lecturer extends Staff {
         this.modulesTaught.add(module);
     }
 
+    public void removeModuleTaught(Module module) {
+        this.modulesTaught.remove(module);
+    }
+
 }
