@@ -1,4 +1,7 @@
-
+/*Group.java
+ * 
+ * Represents a group of students associated with a specific session type (Lab, Tut, or Lec). 
+ */
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,13 +42,13 @@ public class Group {
     public Session getType() {
         switch (Type.getClass().getSimpleName()) {
             case "Lab" -> {
-                return new Lab(Type.getModule(), Type.getLecturer());
+                return new Lab(Type.getModule(), Type.getLecturer(), Type.getRoom());
             }
             case "Tut" -> {
-                return new Tut(Type.getModule(), Type.getLecturer());
+                return new Tut(Type.getModule(), Type.getLecturer(), Type.getRoom());
             }
             case "Lec" -> {
-                return new Lec(Type.getModule(), Type.getLecturer());
+                return new Lec(Type.getModule(), Type.getLecturer(), Type.getRoom());
             }
             default ->
                 throw new AssertionError();
@@ -77,15 +80,15 @@ public class Group {
     }
 
     private void setAsLab(Lab Type) {
-        this.Type = new Lab(Type.getModule(), Type.getLecturer());
+        this.Type = new Lab(Type.getModule(), Type.getLecturer(), Type.getRoom());
     }
 
     private void setAsTut(Tut Type) {
-        this.Type = new Tut(Type.getModule(), Type.getLecturer());
+        this.Type = new Tut(Type.getModule(), Type.getLecturer(), Type.getRoom());
     }
 
     private void setAsLec(Lec Type) {
-        this.Type = new Lec(Type.getModule(), Type.getLecturer());
+        this.Type = new Lec(Type.getModule(), Type.getLecturer(), Type.getRoom());
     }
 
 }

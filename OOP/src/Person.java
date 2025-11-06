@@ -1,11 +1,7 @@
 
-/*
- * Person.java
- *
+/* Person.java
+ * 
  * This class represents a person with basic attributes such as name and age.
- *
- * @author Pedro Goraieb Fernandes
- * @version 1.0. Simple OOP class
  */
 public abstract class Person {
 

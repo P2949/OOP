@@ -1,4 +1,8 @@
 
+/* Staff.java
+ * 
+ * This class represents a staff member, which is a subclass of Person, with additional attributes such as staff ID and department.
+ */
 public abstract class Staff extends Person {
 
     private String staffID;

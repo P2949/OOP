@@ -1,5 +1,8 @@
+/* Student.java
+ *
+ * This class represents a student, which is a subclass of Person, with additional attributes such as student ID, program, year of study, and lab groups.
+ */
 import java.time.LocalDate;
-
 import java.util.List;
 
 public class Student extends Person {

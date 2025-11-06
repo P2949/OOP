@@ -1,11 +1,7 @@
 
-/*
- * Room.java
+/* Room.java
  * 
  * Represents a room in a building with attributes such as room number, capacity, occupancy status, type, and building name.
- * 
- * @author Pedro Goraieb Fernandes
- * @version 1.0. Simple OOP class
  */
 public class Room {
 
