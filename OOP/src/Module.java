@@ -27,23 +27,19 @@ public class Module {
     }
 
     public String getModuleCode() {
-        String tempModuleCode = this.moduleCode;
-        return tempModuleCode;
+        return this.moduleCode;
     }
 
     public void setModuleCode(String moduleCode) {
-        String tempModuleCode = this.moduleCode;
-        this.moduleCode = tempModuleCode;
+        this.moduleCode =  moduleCode;
     }
 
     public String getModuleName() {
-        String tempModuleName = this.moduleName;
-        return tempModuleName;
+        return this.moduleName;
     }
 
     public void setModuleName(String moduleName) {
-        String tempModuleName = this.moduleName;
-        this.moduleName = tempModuleName;
+        this.moduleName = moduleName;
     }
 
     public Lecturer getLecturer() {
