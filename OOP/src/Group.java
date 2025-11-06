@@ -1,6 +1,6 @@
 /*Group.java
  * 
- * Represents a group of students associated with a specific session type (Lab, Tut, or Lec). 
+ * Represents a group of students associated with a specific session type (Lab, Tutorial, or Lecture). 
  */
 import java.util.ArrayList;
 import java.util.List;
@@ -26,19 +26,19 @@ public class Group {
     }
 
     private void setType(Session type) {
-        if (type instanceof Lab || type instanceof Tut || type instanceof Lec) {
+        if (type instanceof Lab || type instanceof Tutorial || type instanceof Lecture) {
             switch (type.getClass().getSimpleName()) {
                 case "Lab" ->
                     setAsLab((Lab) type);
-                case "Tut" ->
-                    setAsTut((Tut) type);
-                case "Lec" ->
-                    setAsLec((Lec) type);
+                case "Tutorial" ->
+                    setAsTutorial((Tutorial) type);
+                case "Lecture" ->
+                    setAsLecture((Lecture) type);
                 default ->
                     throw new AssertionError();
             }
         } else {
-            throw new IllegalArgumentException("Invalid type. Must be Lab, Tut, or Lec.");
+            throw new IllegalArgumentException("Invalid type. Must be Lab, Tutorial, or Lecture.");
         }
     }
 
@@ -47,11 +47,11 @@ public class Group {
             case "Lab" -> {
                 return new Lab(type.getModule(), type.getLecturer(), type.getRoom());
             }
-            case "Tut" -> {
-                return new Tut(type.getModule(), type.getLecturer(), type.getRoom());
+            case "Tutorial" -> {
+                return new Tutorial(type.getModule(), type.getLecturer(), type.getRoom());
             }
-            case "Lec" -> {
-                return new Lec(type.getModule(), type.getLecturer(), type.getRoom());
+            case "Lecture" -> {
+                return new Lecture(type.getModule(), type.getLecturer(), type.getRoom());
             }
             default ->
                 throw new AssertionError();
@@ -95,15 +95,15 @@ public class Group {
         type.getLecturer().addModuleTaught(type.getModule());
     }
 
-    private void setAsTut(Tut type) {
-        this.type = new Tut(type.getModule(), type.getLecturer(), type.getRoom());
+    private void setAsTutorial(Tutorial type) {
+        this.type = new Tutorial(type.getModule(), type.getLecturer(), type.getRoom());
         type.getRoom().addSession(this);
         type.getModule().addSession(this);
         type.getLecturer().addModuleTaught(type.getModule());
     }
 
-    private void setAsLec(Lec type) {
-        this.type = new Lec(type.getModule(), type.getLecturer(), type.getRoom());
+    private void setAsLecture(Lecture type) {
+        this.type = new Lecture(type.getModule(), type.getLecturer(), type.getRoom());
         type.getRoom().addSession(this);
         type.getModule().addSession(this);
         type.getLecturer().addModuleTaught(type.getModule());
