@@ -13,6 +13,23 @@ public class Group {
         this.students = students;
     }
 
+    public void setType(Session type) {
+        if (type instanceof Lab || type instanceof Tut || type instanceof Lec) {
+            switch (type.getClass().getSimpleName()) {
+                case "Lab" ->
+                    setAsLab((Lab) type);
+                case "Tut" ->
+                    setAsTut((Tut) type);
+                case "Lec" ->
+                    setAsLec((Lec) type);
+                default ->
+                    throw new AssertionError();
+            }
+        } else {
+            throw new IllegalArgumentException("Invalid type. Must be Lab, Tut, or Lec.");
+        }
+    }
+
     public char getGroupID() {
         return groupID;
     }
@@ -21,16 +38,16 @@ public class Group {
         this.groupID = groupID;
     }
 
-    public void setAsLab(Lab Type) {
-        this.Type = Type;
+    private void setAsLab(Lab Type) {
+        this.Type = (Lab) Type;
     }
 
-    public void setAsTut(Tut Type) {
-        this.Type = Type;
+    private void setAsTut(Tut Type) {
+        this.Type = (Tut) Type;
     }
 
-    public void setAsLec(Lec Type) {
-        this.Type = Type;
+    private void setAsLec(Lec Type) {
+        this.Type = (Lec) Type;
     }
 
 }
