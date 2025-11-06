@@ -16,7 +16,6 @@ public class Group {
         setType(type);
         type.getModule().addSession(this);
         type.getRoom().addSession(this);
-        type.getLecturer().getModulesTaught().add(type.getModule());
     }
 
     public Group(char groupID, Session type, List<Student> students) {
@@ -43,19 +42,7 @@ public class Group {
     }
 
     public Session getType() {
-        switch (type.getClass().getSimpleName()) {
-            case "Lab" -> {
-                return new Lab(type.getModule(), type.getLecturer(), type.getRoom());
-            }
-            case "Tutorial" -> {
-                return new Tutorial(type.getModule(), type.getLecturer(), type.getRoom());
-            }
-            case "Lecture" -> {
-                return new Lecture(type.getModule(), type.getLecturer(), type.getRoom());
-            }
-            default ->
-                throw new AssertionError();
-        }
+        return type;
     }
 
     public char getGroupID() {
@@ -89,24 +76,21 @@ public class Group {
     }
 
     private void setAsLab(Lab type) {
-        this.type = new Lab(type.getModule(), type.getLecturer(), type.getRoom());
+        this.type = type;
         type.getRoom().addSession(this);
         type.getModule().addSession(this);
-        type.getLecturer().addModuleTaught(type.getModule());
     }
 
     private void setAsTutorial(Tutorial type) {
-        this.type = new Tutorial(type.getModule(), type.getLecturer(), type.getRoom());
+        this.type = type;
         type.getRoom().addSession(this);
         type.getModule().addSession(this);
-        type.getLecturer().addModuleTaught(type.getModule());
     }
 
     private void setAsLecture(Lecture type) {
-        this.type = new Lecture(type.getModule(), type.getLecturer(), type.getRoom());
+        this.type = type;
         type.getRoom().addSession(this);
         type.getModule().addSession(this);
-        type.getLecturer().addModuleTaught(type.getModule());
     }
 
 }

@@ -31,9 +31,7 @@ public class Student extends Person {
     }
 
     public Program getProgram() {
-        Program temp = new Program(program.getTotalModules());
-        temp.setModulesTaught(program.getModulesTaught());
-        return temp;
+        return this.program;
     }
 
     public void setProgram(Program program) {
@@ -53,12 +51,10 @@ public class Student extends Person {
                 }
             }
         }
-        Program temp = new Program(program.getTotalModules());
-        temp.setModulesTaught(program.getModulesTaught());
-        for (Module module : temp.getModulesTaught()) {
+        for (Module module : program.getModulesTaught()) {
             module.addEnrolledStudent(this);
         }
-        this.program = temp;
+        this.program = program;
     }
 
     public int getYearOfStudy() {

@@ -43,13 +43,17 @@ public class Module {
     }
 
     public Lecturer getLecturer() {
-        return new Lecturer(this.lecturer.getName(), this.lecturer.getAge(), this.lecturer.getStaffID(), this.lecturer.getDepartment());
+        return lecturer;
     }
 
     public void setLecturer(Lecturer lecturer) {
-        this.lecturer.removeModuleTaught(this);
-        this.lecturer = new Lecturer(lecturer.getName(), lecturer.getAge(), lecturer.getStaffID(), lecturer.getDepartment());
-        this.lecturer.addModuleTaught(this);
+        if (this.lecturer != null) {
+            this.lecturer.removeModuleTaught(this);
+        }
+        this.lecturer = lecturer;
+        if (lecturer != null) {
+            lecturer.addModuleTaught(this);
+        }
     }
 
     public int getLengthInWeeks() {

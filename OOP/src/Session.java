@@ -18,26 +18,26 @@ abstract class Session {
     }
 
     public Room getRoom() {
-        return new Room(this.room.getRoomNumber(), this.room.getCapacity(), this.room.getType(), this.room.getBuilding());
+        return this.room;
     }
 
     public Lecturer getLecturer() {
-        return new Lecturer(this.lecturer.getName(), this.lecturer.getAge(), this.lecturer.getStaffID(), this.lecturer.getDepartment());
+        return lecturer;
     }
 
     public void setRoom(Room room) {
-        this.room = new Room(room.getRoomNumber(), room.getCapacity(), room.getType(), room.getBuilding());
+        this.room = room;
     }
 
     public void setLecturer(Lecturer lecturer) {
-        this.lecturer = new Lecturer(lecturer.getName(), lecturer.getAge(), lecturer.getStaffID(), lecturer.getDepartment());
+        this.lecturer = lecturer;
     }
 
     public Module getModule() {
-        return new Module(this.module.getModuleCode(), this.module.getModuleName(), this.module.getLecturer(), this.module.getLengthInWeeks(), this.module.getStartWeek());
+        return this.module;
     }
 
     public void setModule(Module module) {
-        this.module = new Module(module.getModuleCode(), module.getModuleName(), module.getLecturer(), module.getLengthInWeeks(), module.getStartWeek());
+        this.module = module;
     }
 }
