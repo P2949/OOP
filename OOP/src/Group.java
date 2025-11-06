@@ -25,19 +25,11 @@ public class Group {
     }
 
     private void setType(Session type) {
-        if (type instanceof Lab || type instanceof Tutorial || type instanceof Lecture) {
-            switch (type.getClass().getSimpleName()) {
-                case "Lab" ->
-                    setAsLab((Lab) type);
-                case "Tutorial" ->
-                    setAsTutorial((Tutorial) type);
-                case "Lecture" ->
-                    setAsLecture((Lecture) type);
-                default ->
-                    throw new AssertionError();
-            }
-        } else {
-            throw new IllegalArgumentException("Invalid type. Must be Lab, Tutorial, or Lecture.");
+        switch (type) {
+            case Lab lab -> setAsLab(lab);
+            case Tutorial tutorial -> setAsTutorial(tutorial);
+            case Lecture lecture -> setAsLecture(lecture);
+            case null, default -> throw new IllegalArgumentException("Invalid type. Must be Lab, Tutorial, or Lecture.");
         }
     }
 
