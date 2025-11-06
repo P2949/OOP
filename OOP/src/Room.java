@@ -1,19 +1,20 @@
 
 /* Room.java
- * 
+ *
  * Represents a room in a building with attributes such as room number, capacity, occupancy status, type, and building name.
  */
+
 import java.util.LinkedList;
 import java.util.List;
 
 public class Room {
 
+    private final List<Group> sessions = new LinkedList<>();
     private String roomNumber;
     private int capacity;
     private boolean isOccupied;
     private String type;
     private String building;
-    private List<Group> sessions = new LinkedList<>();
 
     public Room(String roomNumber, int capacity, String type, String building) {
         this.roomNumber = roomNumber;
@@ -27,12 +28,12 @@ public class Room {
         return roomNumber;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getType() {
         return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getCapacity() {

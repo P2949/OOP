@@ -4,6 +4,7 @@
  * Represents a module in the system.
  * Contains attributes such as length in weeks, start week, module code, module name, lecturer, and enrolled students.
  */
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class Module {
     }
 
     public void setModuleCode(String moduleCode) {
-        this.moduleCode =  moduleCode;
+        this.moduleCode = moduleCode;
     }
 
     public String getModuleName() {
@@ -76,6 +77,10 @@ public class Module {
         return new LinkedList<>(enrolledStudents);
     }
 
+    public void setEnrolledStudents(List<Student> students) {
+        this.enrolledStudents = new LinkedList<>(students);
+    }
+
     public void addEnrolledStudent(Student student) {
         this.enrolledStudents.add(student);
     }
@@ -84,34 +89,26 @@ public class Module {
         this.enrolledStudents.remove(student);
     }
 
-    public void setEnrolledStudents(List<Student> students) {
-        this.enrolledStudents = new LinkedList<>(students);
-    }
-
     public List<Group> getSessions() {
         return new LinkedList<>(sessions);
     }
 
     public void setSessions(List<Group> sessions) {
         for (Group group : sessions) {
-            for (Module mod : this.lecturer.getModulesTaught()) {
-                if (!(mod.getModuleCode().equals(this.moduleCode) && mod.getModuleName().equals(this.moduleName))) {
-                    throw new IllegalArgumentException("Session module does not match this module.");
-                } else if (!(mod.getLecturer().equals(this.lecturer))) {
-                    throw new IllegalArgumentException("Lecturer does not teach the module for this session.");
-                }
+            if (!group.getSession().getModule().equals(this)) {
+                throw new IllegalArgumentException("Session module does not match this module.");
+            } else if (!group.getSession().getLecturer().equals(this.lecturer)) {
+                throw new IllegalArgumentException("Lecturer does not teach the module for this session.");
             }
-            this.sessions = new LinkedList<>(sessions);
         }
+        this.sessions = new LinkedList<>(sessions);
     }
 
     public void addSession(Group group) {
-        for (Module mod : this.lecturer.getModulesTaught()) {
-            if (!(mod.getModuleCode().equals(this.moduleCode) && mod.getModuleName().equals(this.moduleName))) {
-                throw new IllegalArgumentException("Session module does not match this module.");
-            } else if (!(mod.getLecturer().getStaffID().matches(this.lecturer.getStaffID()))) {
-                throw new IllegalArgumentException("Lecturer does not teach the module for this session.");
-            }
+        if (!group.getSession().getModule().equals(this)) {
+            throw new IllegalArgumentException("Session module does not match this module.");
+        } else if (!group.getSession().getLecturer().equals(this.lecturer)) {
+            throw new IllegalArgumentException("Lecturer does not teach the module for this session.");
         }
         this.sessions.add(group);
     }

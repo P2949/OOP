@@ -1,8 +1,9 @@
 
 /* Lecturer.java
- * 
+ *
  * This class represents a lecturer, which is a subclass of Staff, with additional attributes such as modules taught.
  */
+
 import java.util.LinkedList;
 import java.util.List;
 

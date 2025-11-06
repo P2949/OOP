@@ -1,40 +1,34 @@
 /*Group.java
- * 
- * Represents a group of students associated with a specific session type (Lab, Tutorial, or Lecture). 
+ *
+ * Represents a group of students associated with a specific session type (Lab, Tutorial, or Lecture).
  */
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Group {
 
     private char groupID;
-    private Session type;
+    private final Session session;
     private List<Student> students = new ArrayList<>();
 
-    public Group(char groupID, Session type) {
+    public Group(char groupID, Session session) {
         this.groupID = groupID;
-        setType(type);
-        type.getModule().addSession(this);
-        type.getRoom().addSession(this);
+        this.session = session;
+        session.getModule().addSession(this);
+        session.getRoom().addSession(this);
     }
 
-    public Group(char groupID, Session type, List<Student> students) {
+    public Group(char groupID, Session session, List<Student> students) {
         this.groupID = groupID;
-        setType(type);
+        this.session = session;
         this.students = new ArrayList<>(students);
+        session.getModule().addSession(this);
+        session.getRoom().addSession(this);
     }
 
-    private void setType(Session type) {
-        switch (type) {
-            case Lab lab -> setAsLab(lab);
-            case Tutorial tutorial -> setAsTutorial(tutorial);
-            case Lecture lecture -> setAsLecture(lecture);
-            case null, default -> throw new IllegalArgumentException("Invalid type. Must be Lab, Tutorial, or Lecture.");
-        }
-    }
-
-    public Session getType() {
-        return type;
+    public Session getSession() {
+        return session;
     }
 
     public char getGroupID() {
@@ -51,38 +45,26 @@ public class Group {
 
     public void setStudents(List<Student> students) {
         this.students = new ArrayList<>(students);
-        Session tempType = type;
+        Session tempSession = session;
         List<Student> tempStudents = new ArrayList<>(this.students);
-        tempType.getModule().setEnrolledStudents(tempStudents);
-        setType(type);
+        tempSession.getModule().setEnrolledStudents(tempStudents);
     }
 
     public void addStudent(Student student) {
-        type.getModule().addEnrolledStudent(student);
-        this.students.add(student);
+        if (!this.students.contains(student)) {
+            this.students.add(student);
+            if (!student.getGroups().contains(this)) {
+                student.addGroup(this);
+            }
+        }
     }
 
     public void removeStudent(Student student) {
-        type.getModule().removeEnrolledStudent(student);
-        this.students.remove(student);
-    }
-
-    private void setAsLab(Lab type) {
-        this.type = type;
-        type.getRoom().addSession(this);
-        type.getModule().addSession(this);
-    }
-
-    private void setAsTutorial(Tutorial type) {
-        this.type = type;
-        type.getRoom().addSession(this);
-        type.getModule().addSession(this);
-    }
-
-    private void setAsLecture(Lecture type) {
-        this.type = type;
-        type.getRoom().addSession(this);
-        type.getModule().addSession(this);
+        if (this.students.remove(student)) {
+            if (student.getGroups().contains(this)) {
+                student.removeGroup(this);
+            }
+        }
     }
 
 }
