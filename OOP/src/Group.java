@@ -1,6 +1,6 @@
 /*Group.java
  *
- * Represents a group of students associated with a specific session type (Lab, Tutorial, or Lecture).
+ * Represents a group of students associated with a specific session type (Laboratory, Tutorial, or Lecture).
  */
 
 import java.util.ArrayList;

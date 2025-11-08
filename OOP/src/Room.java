@@ -3,7 +3,6 @@
  *
  * Represents a room in a building with attributes such as room number, capacity, occupancy status, type, and building name.
  */
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,10 +12,10 @@ public class Room {
     private String roomNumber;
     private int capacity;
     private boolean isOccupied;
-    private String type;
+    private RoomType type;
     private String building;
 
-    public Room(String roomNumber, int capacity, String type, String building) {
+    public Room(String roomNumber, int capacity, RoomType type, String building) {
         this.roomNumber = roomNumber;
         this.capacity = capacity;
         this.type = type;
@@ -24,15 +23,19 @@ public class Room {
         this.isOccupied = false;
     }
 
+    public enum RoomType {
+        CLASSROOM, LABORATORY
+    }
+
     public String getRoomNumber() {
         return roomNumber;
     }
 
-    public String getType() {
+    public RoomType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(RoomType type) {
         this.type = type;
     }
 

@@ -1,3 +1,4 @@
+
 import java.time.LocalTime;
 
 /* Session.java
@@ -35,11 +36,11 @@ public abstract class Session {
         LocalTime latest = LocalTime.of(22, 0);
 
         if (endTime.isBefore(startTime) || endTime.equals(startTime)) {
-            throw new IllegalArgumentException("End tim must be after start time.");
+            throw new IllegalArgumentException("End time must be after start time.");
         }
 
         if (startTime.isBefore(earliest) || endTime.isAfter(latest)) {
-            throw new IllegalArgumentException("Session must from 8am to 10pm"); // 10pm lectures go HARD
+            throw new IllegalArgumentException("Session must be from 8am to 10pm"); // 10pm lectures go HARD
         }
     }
 
