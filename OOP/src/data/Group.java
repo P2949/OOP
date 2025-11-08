@@ -2,7 +2,7 @@
  *
  * Represents a group of students associated with a specific session type (Laboratory, Tutorial, or Lecture).
  */
-
+package data;
 import java.util.ArrayList;
 import java.util.List;
 

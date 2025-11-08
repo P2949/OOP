@@ -2,7 +2,7 @@
  *
  * This class represents a student, which is a subclass of Person, with additional attributes such as student ID, program, year of study, and lab groups.
  */
-
+package data;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;

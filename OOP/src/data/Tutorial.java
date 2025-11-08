@@ -1,3 +1,4 @@
+package data;
 import java.time.LocalTime;
 
 /* Tutorial.java

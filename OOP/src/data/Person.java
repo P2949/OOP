@@ -2,6 +2,8 @@
  *
  * This class represents a person with basic attributes such as name and age.
  */
+package data;
+
 public abstract class Person {
 
     private String name;

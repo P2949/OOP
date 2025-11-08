@@ -3,7 +3,7 @@
  *
  * Represents a program of study with attributes such as total modules and a list of modules taught.
  */
-
+package data;
 import java.util.LinkedList;
 import java.util.List;
 

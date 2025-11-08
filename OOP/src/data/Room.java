@@ -3,6 +3,7 @@
  *
  * Represents a room in a building with attributes such as room number, capacity, occupancy status, type, and building name.
  */
+package data;
 import java.util.LinkedList;
 import java.util.List;
 
