@@ -1,4 +1,4 @@
-package data;
+package models;
 import java.time.LocalTime;
 
 /* Tutorial.java

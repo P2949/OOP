@@ -2,7 +2,7 @@
  *
  * Represents a group of students associated with a specific session type (Laboratory, Tutorial, or Lecture).
  */
-package data;
+package models;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,9 +45,8 @@ public class Group {
 
     public void setStudents(List<Student> students) {
         this.students = new ArrayList<>(students);
-        Session tempSession = session;
         List<Student> tempStudents = new ArrayList<>(this.students);
-        tempSession.getModule().setEnrolledStudents(tempStudents);
+        session.getModule().setEnrolledStudents(tempStudents);
     }
 
     public void addStudent(Student student) {

@@ -4,7 +4,7 @@
  * Represents a module in the system.
  * Contains attributes such as length in weeks, start week, module code, module name, lecturer, and enrolled students.
  */
-package data;
+package models;
 import java.util.LinkedList;
 import java.util.List;
 

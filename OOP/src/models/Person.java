@@ -2,7 +2,7 @@
  *
  * This class represents a person with basic attributes such as name and age.
  */
-package data;
+package models;
 
 public abstract class Person {
 
