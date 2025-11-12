@@ -6,6 +6,7 @@ import models.Session;
 import models.Student;
 import views.View;
 import java.util.List;
+import java.util.ArrayList;
 public class AdminController {
 
     View view;
@@ -15,7 +16,7 @@ public class AdminController {
     }
 
     public Student getStudent(Student student) {
-        return null;
+        return student;
     }
 
     public Student CreateStudent() {
@@ -61,7 +62,5 @@ public class AdminController {
     public List<Laboratory> getAllLaboratories() {
         return null;
     }
-
-
 }
 
