@@ -14,25 +14,17 @@ import org.jetbrains.annotations.NotNull;
 
 public class DatabaseController {
 
-    //for now just testing how opencsv works, seems good and simple
-    public static List<String[]> writeAllLines(List<String[]> lines, @NotNull Path path) throws Exception {
+    //basic read and write lines for csv files
+    public void writeAllLines(List<String[]> lines, @NotNull Path path) throws Exception {
         try (CSVWriter writer = new CSVWriter(new FileWriter(path.toString()))) {
             writer.writeAll(lines);
         }
-        try (Reader reader = Files.newBufferedReader(path)) {
-            try (CSVReader csvReader = new CSVReader(reader)) {
-                return csvReader.readAll();
+    }
+        public List<String[]> readAllLines(List<String[]> lines, @NotNull Path path) throws Exception {
+            try (Reader reader = Files.newBufferedReader(path)) {
+                try (CSVReader csvReader = new CSVReader(reader)) {
+                    return csvReader.readAll();
+                }
             }
         }
-    }
-    public static void main(String[] args) throws Exception {
-        List<String[]> a = new ArrayList<>();
-        String[] b = new String[2];
-        b[0] = "aaa";
-        b[1] = "bbb";
-        a.add(b);
-        List<String[]> c = writeAllLines(a, Path.of("./csv/a.csv"));
-        String d = Arrays.toString(c.getFirst());
-        System.out.println(d);
-    }
 }
