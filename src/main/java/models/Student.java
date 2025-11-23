@@ -3,6 +3,9 @@
  * This class represents a student, which is a subclass of Person, with additional attributes such as student ID, program, year of study, and lab groups.
  */
 package models;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,7 +38,7 @@ public class Student extends Person {
         return this.program;
     }
 
-    public void setProgram(Program program) {
+    public void setProgram(@NotNull Program program) {
         if (program.getModulesTaught().isEmpty()) {
             throw new IllegalArgumentException("Cannot set program: no modules taught.");
         } else {
@@ -70,7 +73,7 @@ public class Student extends Person {
         return new LinkedList<>(groups);
     }
 
-    public void addGroup(Group group) {
+    public void addGroup(@NotNull Group group) {
         if (!group.getSession().getModule().getEnrolledStudents().contains(this)) {
             throw new IllegalArgumentException("Cannot add group: either already on that group or not enrolled in the module.");
         }

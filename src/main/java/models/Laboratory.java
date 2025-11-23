@@ -1,4 +1,7 @@
 package models;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.time.LocalTime;
 
 /*
@@ -12,7 +15,7 @@ public class Laboratory extends Session {
         super(module, lecturer, requireLabRoom(room), day, startWeek, startTime, endTime, endWeek);
     }
 
-    private static Room requireLabRoom(Room room) {
+    private static Room requireLabRoom(@NotNull Room room) {
         if (!Room.RoomType.LABORATORY.name().matches((room.getType().name()))) {
             throw new IllegalArgumentException("Room type must be LABORATORY for Lab sessions.");
         }

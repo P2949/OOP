@@ -1,4 +1,7 @@
 package models;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.time.LocalTime;
 
 /* Lecture.java
@@ -11,7 +14,7 @@ public class Lecture extends Session {
         super(module, lecturer, requireLectureRoom(room), day, startWeek, startTime, endTime, endWeek);
     }
 
-    public static Room requireLectureRoom(Room room) {
+    public static Room requireLectureRoom(@NotNull Room room) {
         if (!Room.RoomType.CLASSROOM.name().matches((room.getType().name()))) {
             throw new IllegalArgumentException("Room type must be CLASSROOM for Lecture sessions.");
         }

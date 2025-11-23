@@ -3,6 +3,9 @@
  * Represents a group of students associated with a specific session type (Laboratory, Tutorial, or Lecture).
  */
 package models;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,14 +15,14 @@ public class Group {
     private final Session session;
     private List<Student> students = new ArrayList<>();
 
-    public Group(char groupID, Session session) {
+    public Group(char groupID, @NotNull Session session) {
         this.groupID = groupID;
         this.session = session;
         session.getModule().addSession(this);
         session.getRoom().addSession(this);
     }
 
-    public Group(char groupID, Session session, List<Student> students) {
+    public Group(char groupID, @NotNull Session session, List<Student> students) {
         this.groupID = groupID;
         this.session = session;
         this.students = new ArrayList<>(students);

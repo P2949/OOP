@@ -5,6 +5,9 @@
  * Contains attributes such as length in weeks, start week, module code, module name, lecturer, and enrolled students.
  */
 package models;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -93,7 +96,7 @@ public class Module {
         return new LinkedList<>(sessions);
     }
 
-    public void setSessions(List<Group> sessions) {
+    public void setSessions(@NotNull List<Group> sessions) {
         for (Group group : sessions) {
             if (!group.getSession().getModule().equals(this)) {
                 throw new IllegalArgumentException("Session module does not match this module.");
@@ -104,7 +107,7 @@ public class Module {
         this.sessions = new LinkedList<>(sessions);
     }
 
-    public void addSession(Group group) {
+    public void addSession(@NotNull Group group) {
         if (!group.getSession().getModule().equals(this)) {
             throw new IllegalArgumentException("Session module does not match this module.");
         } else if (!group.getSession().getLecturer().equals(this.lecturer)) {
