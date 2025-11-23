@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Group {
+public class Group implements CSVModel {
 
     private char groupID;
     private final Session session;
@@ -69,4 +69,25 @@ public class Group {
         }
     }
 
+    @Override
+    public String[] toCSVRow() {
+        String studentIDs = students.stream()
+            .map(s -> String.valueOf(s.getStudentID()))
+            .collect(java.util.stream.Collectors.joining(","));
+        String sessionKey = session.getClass().getSimpleName() + ":" +
+                           session.getModule().getModuleCode() + ":" +
+                           session.getDay() + ":" +
+                           session.getStartTime() + ":" +
+                           session.getRoom().getRoomNumber();
+        return new String[]{
+            String.valueOf(groupID),
+            sessionKey,
+            studentIDs
+        };
+    }
+
+    @Override
+    public String[] getCSVHeader() {
+        return new String[]{"groupID", "session", "students"};
+    }
 }

@@ -9,7 +9,7 @@ import java.time.LocalTime;
  *
  * Represents a Laboratory session, which is a specific type of Session.
  */
-public class Laboratory extends Session {
+public class Laboratory extends Session implements CSVModel {
 
     public Laboratory(Module module, Lecturer lecturer, Room room, Session.Day day, int startWeek, LocalTime startTime, LocalTime endTime, int endWeek) {
         super(module, lecturer, requireLabRoom(room), day, startWeek, startTime, endTime, endWeek);
@@ -25,5 +25,25 @@ public class Laboratory extends Session {
     @Override
     public boolean requiresGroups() {
         return true;
+    }
+
+    @Override
+    public String[] toCSVRow() {
+        return new String[]{
+            "Laboratory",
+            getModule().getModuleCode(),
+            getLecturer().getStaffID(),
+            getRoom().getRoomNumber(),
+            getDay().name(),
+            String.valueOf(getStartWeek()),
+            getStartTime().toString(),
+            getEndTime().toString(),
+            String.valueOf(getEndWeek())
+        };
+    }
+
+    @Override
+    public String[] getCSVHeader() {
+        return new String[]{"type", "moduleCode", "lecturerStaffID", "roomNumber", "day", "startWeek", "startTime", "endTime", "endWeek"};
     }
 }

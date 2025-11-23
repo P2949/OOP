@@ -8,7 +8,7 @@ import java.time.LocalTime;
  *
  * Represents a Lecture session, which is a specific type of Session.
  */
-public class Lecture extends Session {
+public class Lecture extends Session implements CSVModel {
 
     public Lecture(Module module, Lecturer lecturer, Room room, Session.Day day, int startWeek, LocalTime startTime, LocalTime endTime, int endWeek) {
         super(module, lecturer, requireLectureRoom(room), day, startWeek, startTime, endTime, endWeek);
@@ -26,4 +26,23 @@ public class Lecture extends Session {
         return false;
     }
 
+    @Override
+    public String[] toCSVRow() {
+        return new String[]{
+            "Lecture",
+            getModule().getModuleCode(),
+            getLecturer().getStaffID(),
+            getRoom().getRoomNumber(),
+            getDay().name(),
+            String.valueOf(getStartWeek()),
+            getStartTime().toString(),
+            getEndTime().toString(),
+            String.valueOf(getEndWeek())
+        };
+    }
+
+    @Override
+    public String[] getCSVHeader() {
+        return new String[]{"type", "moduleCode", "lecturerStaffID", "roomNumber", "day", "startWeek", "startTime", "endTime", "endWeek"};
+    }
 }

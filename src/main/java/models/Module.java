@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Module {
+public class Module implements CSVModel {
 
     private int lengthInWeeks;
     private int startWeek;
@@ -118,5 +118,29 @@ public class Module {
 
     public void removeSession(Group group) {
         this.sessions.remove(group);
+    }
+
+    @Override
+    public String[] toCSVRow() {
+        String sessionIDs = sessions.stream()
+            .map(g -> g.getSession().getModule().getModuleCode() + ":" + g.getGroupID())
+            .collect(java.util.stream.Collectors.joining(","));
+        String studentIDs = enrolledStudents.stream()
+            .map(s -> String.valueOf(s.getStudentID()))
+            .collect(java.util.stream.Collectors.joining(","));
+        return new String[]{
+            moduleCode,
+            moduleName,
+            lecturer != null ? lecturer.getStaffID() : "", // i dont know if this is needed
+            String.valueOf(lengthInWeeks),
+            String.valueOf(startWeek),
+            sessionIDs,
+            studentIDs
+        };
+    }
+
+    @Override
+    public String[] getCSVHeader() {
+        return new String[]{"moduleCode", "moduleName", "lecturerStaffID", "lengthInWeeks", "startWeek", "sessions", "enrolledStudents"};
     }
 }

@@ -7,12 +7,14 @@ package models;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Program {
+public class Program implements CSVModel {
 
     private List<Module> modules = new LinkedList<>();
     private int totalModules;
+    private String programName;
 
-    public Program(int totalModules) {
+    public Program(String programName, int totalModules) {
+        this.programName = programName;
         this.totalModules = totalModules;
     }
 
@@ -36,4 +38,28 @@ public class Program {
         this.modules.add(module);
     }
 
+    public String getProgramName() {
+        return programName;
+    }
+
+    public void setProgramName(String programName) {
+        this.programName = programName;
+    }
+
+    @Override
+    public String[] toCSVRow() {
+        String moduleCodes = modules.stream()
+            .map(Module::getModuleCode)
+            .collect(java.util.stream.Collectors.joining(","));
+        return new String[]{
+            programName,
+            String.valueOf(totalModules),
+            moduleCodes
+        };
+    }
+
+    @Override
+    public String[] getCSVHeader() {
+        return new String[]{"programName", "totalModules", "moduleCodes"};
+    }
 }

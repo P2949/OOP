@@ -7,7 +7,7 @@ package models;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Lecturer extends Staff {
+public class Lecturer extends Staff implements CSVModel {
 
     private final List<Module> modulesTaught = new LinkedList<>();
 
@@ -27,4 +27,22 @@ public class Lecturer extends Staff {
         this.modulesTaught.remove(module);
     }
 
+    @Override
+    public String[] toCSVRow() {
+        String moduleCodes = modulesTaught.stream()
+            .map(Module::getModuleCode)
+            .collect(java.util.stream.Collectors.joining(","));
+        return new String[]{
+            getStaffID(),
+            getName(),
+            String.valueOf(getAge()),
+            getDepartment(),
+            moduleCodes
+        };
+    }
+
+    @Override
+    public String[] getCSVHeader() {
+        return new String[]{"staffID", "name", "age", "department", "modulesTaught"};
+    }
 }

@@ -1,0 +1,7 @@
+"roomNumber","capacity","type","building","isOccupied"
+"101","50","CLASSROOM","Building A","true"
+"L201","30","LABORATORY","CS Building","false"
+"101","50","CLASSROOM","Building A","true"
+"L201","30","LABORATORY","CS Building","false"
+"101","50","CLASSROOM","Building A","true"
+"L201","30","LABORATORY","CS Building","false"

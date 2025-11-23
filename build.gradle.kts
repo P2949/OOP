@@ -20,4 +20,12 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    failOnNoDiscoveredTests = false
+}
+
+tasks.register<JavaExec>("run") {
+    group = "application"
+    description = "Run the test class"
+    classpath = sourceSets["test"].runtimeClasspath + sourceSets["main"].runtimeClasspath
+    mainClass.set("controllers.TestSave")
 }

@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Student extends Person {
+public class Student extends Person implements CSVModel {
 
     private static int studentCounter;
     private int studentID;
@@ -107,5 +107,33 @@ public class Student extends Person {
 
     public int getStudentCount() {
         return studentCounter;
+    }
+
+    @Override
+    public String[] toCSVRow() {
+        String groupIDs = groups.stream()
+            .map(g -> {
+                Session s = g.getSession();
+                return String.valueOf(g.getGroupID()) + ":" +
+                       s.getClass().getSimpleName() + ":" +
+                       s.getModule().getModuleCode() + ":" +
+                       s.getDay() + ":" +
+                       s.getStartTime() + ":" +
+                       s.getRoom().getRoomNumber();
+            })
+            .collect(java.util.stream.Collectors.joining(","));
+        return new String[]{
+            String.valueOf(studentID),
+            getName(),
+            String.valueOf(getAge()),
+            program != null ? program.getProgramName() : "",
+            String.valueOf(yearOfStudy),
+            groupIDs
+        };
+    }
+
+    @Override
+    public String[] getCSVHeader() {
+        return new String[]{"studentID", "name", "age", "programName", "yearOfStudy", "groups"};
     }
 }

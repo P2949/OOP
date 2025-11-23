@@ -7,7 +7,7 @@ package models;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Room {
+public class Room implements CSVModel {
 
     private final List<Group> sessions = new LinkedList<>();
     private String roomNumber;
@@ -78,5 +78,15 @@ public class Room {
 
     public void removeSession(Group session) {
         this.sessions.remove(session);
+    }
+
+    @Override
+    public String[] toCSVRow() {
+        return new String[]{roomNumber, String.valueOf(capacity), type.name(), building, String.valueOf(isOccupied)};
+    }
+
+    @Override
+    public String[] getCSVHeader() {
+        return new String[]{"roomNumber", "capacity", "type", "building", "isOccupied"};
     }
 }
