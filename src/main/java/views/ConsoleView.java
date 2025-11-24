@@ -16,22 +16,22 @@ public class ConsoleView implements View {
      */
     @Override
     public StudentInput addStudent() {
-        IO.println("Enter Student ID: ");
+        System.out.println("Enter Student ID: ");
         int id = scanner.nextInt();
 
-        IO.println("Enter Student First Name: ");
+        System.out.println("Enter Student First Name: ");
         String firstName = scanner.next();
 
-        IO.println("Enter Student Last Name: ");
+        System.out.println("Enter Student Last Name: ");
         String lastName = scanner.next();
 
-        IO.println("Enter Student Age: ");
+        System.out.println("Enter Student Age: ");
         int age = scanner.nextInt();
 
-        IO.println("Enter Student Program: ");
+        System.out.println("Enter Student Program: ");
         String program = scanner.next();
 
-        IO.println("Enter Student Year of Study: ");
+        System.out.println("Enter Student Year of Study: ");
         int yearOfStudy = scanner.nextInt();
 
         return new StudentInput(id, firstName, lastName, age, program, yearOfStudy);
@@ -44,22 +44,22 @@ public class ConsoleView implements View {
      */
     @Override
     public LecturerInput addLecturer() {
-        IO.println("Enter Staff ID: ");
+        System.out.println("Enter Staff ID: ");
         String staffID = scanner.next();
 
-        IO.println("Enter Staff First Name: ");
+        System.out.println("Enter Staff First Name: ");
         String firstName = scanner.next();
 
-        IO.println("Enter Staff Last Name: ");
+        System.out.println("Enter Staff Last Name: ");
         String lastName = scanner.next();
 
-        IO.println("Enter Staff Age: ");
+        System.out.println("Enter Staff Age: ");
         int age = scanner.nextInt();
 
-        IO.println("Enter Department: ");
+        System.out.println("Enter Department: ");
         String department = scanner.next();
 
-        IO.println("Enter Module Taught: ");
+        System.out.println("Enter Module Taught: ");
         String moduleTaught = scanner.next();
 
         return new LecturerInput(staffID, firstName, lastName, age, department, moduleTaught);
@@ -72,10 +72,10 @@ public class ConsoleView implements View {
      */
     @Override
     public ProgramInput addProgram() {
-        IO.println("Enter Program Name:");
+        System.out.println("Enter Program Name:");
         String programName = scanner.next();
 
-        IO.println("Enter Number of Modules:");
+        System.out.println("Enter Number of Modules:");
         int moduleCount = scanner.nextInt();
 
         return new ProgramInput(programName, moduleCount);
@@ -88,19 +88,19 @@ public class ConsoleView implements View {
      */
     @Override
     public ModuleInput addModule() {
-        IO.println("Enter Module Name: ");
+        System.out.println("Enter Module Name: ");
         String moduleName = scanner.next();
 
-        IO.println("Enter Module Code: ");
+        System.out.println("Enter Module Code: ");
         String moduleCode = scanner.next();
 
-        IO.println("Enter Module Lecturer: ");
+        System.out.println("Enter Module Lecturer: ");
         String moduleLecturer = scanner.next();
 
-        IO.println("Enter Module Length (in weeks): ");
+        System.out.println("Enter Module Length (in weeks): ");
         int moduleLength = scanner.nextInt();
 
-        IO.println("Enter Module Start Week: ");
+        System.out.println("Enter Module Start Week: ");
         int moduleStartWeek = scanner.nextInt();
 
         return new ModuleInput(moduleName, moduleCode, moduleLecturer, moduleLength, moduleStartWeek);
@@ -113,7 +113,7 @@ public class ConsoleView implements View {
      */
     @Override
     public SessionInput addSession() {
-        IO.println("What kind of session would you like to add? (laboratory/tutorial/lecture)");
+        System.out.println("What kind of session would you like to add? (laboratory/tutorial/lecture)");
         String kindOfSession = scanner.next();
 
         int startWeek;

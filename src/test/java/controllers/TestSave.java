@@ -16,33 +16,33 @@ public class TestSave {
         try {
             DatabaseController db = new DatabaseController();
 
-            IO.println("Testing CSV Persistence\n");
+            System.out.println("Testing CSV Persistence\n");
 
-            IO.println("Creating Rooms...");
+            System.out.println("Creating Rooms...");
             Room room1 = new Room("101", 50, Room.RoomType.CLASSROOM, "Building A");
             Room room2 = new Room("L201", 30, Room.RoomType.LABORATORY, "CS Building");
             room1.setOccupied(true);
             db.save(room1);
             db.save(room2);
-            IO.println("Saved: " + room1.getRoomNumber() + ", " + room2.getRoomNumber());
+            System.out.println("Saved: " + room1.getRoomNumber() + ", " + room2.getRoomNumber());
 
-            IO.println("\nCreating Lecturer...");
+            System.out.println("\nCreating Lecturer...");
             Lecturer lecturer = new Lecturer("Dr. English", 45, "L001", "Computer Science");
             db.save(lecturer);
-            IO.println("Saved: " + lecturer.getName() + " (" + lecturer.getStaffID() + ")");
+            System.out.println("Saved: " + lecturer.getName() + " (" + lecturer.getStaffID() + ")");
 
-            IO.println("\nCreating Module...");
+            System.out.println("\nCreating Module...");
             models.Module module = new models.Module("WD1004", "Web Development", lecturer, 12, 1);
             db.save(module);
-            IO.println("Saved: " + module.getModuleCode() + " - " + module.getModuleName());
+            System.out.println("Saved: " + module.getModuleCode() + " - " + module.getModuleName());
 
-            IO.println("\nCreating Program...");
+            System.out.println("\nCreating Program...");
             Program program = new Program("Computer Science", 3);
             program.addModuleTaught(module);
             db.save(program);
-            IO.println("Saved: " + program.getProgramName() + " with " + program.getTotalModules() + " modules");
+            System.out.println("Saved: " + program.getProgramName() + " with " + program.getTotalModules() + " modules");
 
-            IO.println("\nCreating Students...");
+            System.out.println("\nCreating Students...");
             Student student1 = new Student("Pedro", 20, program, 1);
             Student student2 = new Student("Shay", 21, program, 1);
             Student student3 = new Student("Caoimhe", 80, program, 1);
@@ -55,9 +55,9 @@ public class TestSave {
             db.save(student1);
             db.save(student2);
             db.save(student3);
-            IO.println("Saved: " + student1.getName() + ", " + student2.getName() + ", " + student3.getName());
+            System.out.println("Saved: " + student1.getName() + ", " + student2.getName() + ", " + student3.getName());
 
-            IO.println("\nCreating Sessions...");
+            System.out.println("\nCreating Sessions...");
             Lecture lecture = new Lecture(module, lecturer, room1, Session.Day.MONDAY, 1, 
                 LocalTime.of(9, 0), LocalTime.of(10, 0), 12);
             Laboratory lab = new Laboratory(module, lecturer, room2, Session.Day.TUESDAY, 1, 
@@ -67,9 +67,9 @@ public class TestSave {
             db.save(lecture);
             db.save(lab);
             db.save(tutorial);
-            IO.println("Saved: Lecture, Laboratory, Tutorial");
+            System.out.println("Saved: Lecture, Laboratory, Tutorial");
 
-            IO.println("\nCreating Groups...");
+            System.out.println("\nCreating Groups...");
             Group group1 = new Group('A', lecture);
             Group group2 = new Group('A', lab);
             Group group3 = new Group('B', lab);
@@ -89,26 +89,26 @@ public class TestSave {
             db.save(group2);
             db.save(group3);
             db.save(group4);
-            IO.println("Saved: Groups A, B with students assigned");
+            System.out.println("Saved: Groups A, B with students assigned");
             
-            IO.println("\nUpdating Students with Groups...");
+            System.out.println("\nUpdating Students with Groups...");
             db.save(student1);
             db.save(student2);
             db.save(student3);
-            IO.println("Updated students with group relationships");
+            System.out.println("Updated students with group relationships");
 
-            IO.println("\nUpdating Module with Sessions and Students...");
+            System.out.println("\nUpdating Module with Sessions and Students...");
             db.save(module);
-            IO.println("Updated module with relationships");
+            System.out.println("Updated module with relationships");
 
-            IO.println("\nUpdating Lecturer with Modules...");
+            System.out.println("\nUpdating Lecturer with Modules...");
             db.save(lecturer);
-            IO.println("Updated lecturer with modules taught");
-            IO.println("\nAll CSV Files created");
+            System.out.println("Updated lecturer with modules taught");
+            System.out.println("\nAll CSV Files created");
 
             
         } catch (Exception e) {
-            IO.println("\nError: " + e.getMessage());
+            System.out.println("\nError: " + e.getMessage());
             e.printStackTrace();
         }
     }

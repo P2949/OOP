@@ -110,12 +110,12 @@ public class DatabaseController {
         // Check for duplicates using an entity-specific key
         //  Currently, the default action is to overwrite because it works nicely with everything else
         if (isDuplicate(lines, row, className)) {
-            IO.println("Duplicate " + className + " Overwriting (harmless?)");
+            System.out.println("Duplicate " + className + " Overwriting (harmless?)");
             int existingIndex = findDuplicateIndex(lines, row, className);
             if (existingIndex != -1) {
                 lines.set(existingIndex, row);
             } else {
-                IO.println("Duplicate " + className + " not found");
+                System.out.println("Duplicate " + className + " not found");
                 lines.add(row); // if this happens, something is wrong, very wrong
             }
         } else {
@@ -216,17 +216,17 @@ public class DatabaseController {
         List<String[]> lines = readAllLines(path);
 
         if (lines.isEmpty()) {
-            IO.println("Cannot delete from empty file: " + path);
+            System.out.println("Cannot delete from empty file: " + path);
         }
 
         if (lineIndex < 0 || lineIndex >= lines.size()) {
-            IO.println(
+            System.out.println(
                     "Line index " + lineIndex + " is out of bounds. File has " + lines.size() + " lines."
             );
         }
 
         if (lineIndex == 0) {
-            IO.println("Cannot delete header row (index 0)");
+            System.out.println("Cannot delete header row (index 0)");
         }
 
         lines.remove(lineIndex);

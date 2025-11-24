@@ -46,6 +46,6 @@ public interface View {
      * @param message text to display
      */
     default void showMessage(String message) {
-        IO.println(message);
+        System.out.println(message);
     }
 }
