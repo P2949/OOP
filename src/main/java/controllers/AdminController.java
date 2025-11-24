@@ -1,146 +1,226 @@
 package controllers;
 
-import models.Laboratory;
+import models.Group;
+import models.Lecturer;
 import models.Module;
+import models.Program;
 import models.Session;
 import models.Student;
-import views.View;
+import views.AdminView;
+import views.StudentConsoleView;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * The type Admin controller.
- */
 public class AdminController {
+    private final AdminView view;
+    private final List<Student> students = new ArrayList<>();
+    private final List<Lecturer> lecturers = new ArrayList<>();
+    private final List<Program> programs = new ArrayList<>();
+    private final List<Module> modules = new ArrayList<>();
+    private final List<Session> sessions = new ArrayList<>();
+    private final List<Group> groups = new ArrayList<>();
 
-    /**
-     * The View.
-     */
-    final View view;
-
-    /**
-     * Instantiates a new Admin controller.
-     *
-     * @param view the view
-     */
-    public AdminController(View view){
+    public AdminController(AdminView view) {
         this.view = view;
     }
 
-    /**
-     * Gets student.
-     *
-     * @param student the student
-     * @return the student
-     */
-    public Student getStudent(Student student) {
-        return student;
+    public void start() {
+        boolean running = true;
+        while (running) {
+            int choice = view.showMenu();
+            
+            switch (choice) {
+                case 1:
+                    createCourse();
+                    break;
+                case 2:
+                    createStudent();
+                    break;
+                case 3:
+                    enrollStudentInCourse();
+                    break;
+                case 4:
+                    viewAllCourses();
+                    break;
+                case 5:
+                    viewAllStudents();
+                    break;
+                case 6:
+                    viewAsStudent();
+                    break;
+                case 0:
+                    view.showMessage("Exiting...");
+                    running = false;
+                    break;
+                default:
+                    view.showMessage("Invalid option. Please try again.");
+                    break;
+            }
+        }
     }
 
-    /**
-     * Create student.
-     *
-     * @return the student
-     */
-    public Student CreateStudent() {
-        return null;
+    private void createCourse() {
+        Program program = view.createCourse();
+        if (program != null) {
+            programs.add(program);
+            for (Module module : program.getModulesTaught()) {
+                modules.add(module);
+                lecturers.add(module.getLecturer());
+                for (Group group : module.getSessions()) {
+                    groups.add(group);
+                    sessions.add(group.getSession());
+                }
+            }
+            view.showMessage("Course created successfully!");
+        }
     }
 
-    /**
-     * Update student.
-     *
-     * @param student the student
-     * @return the student
-     */
-    public Student UpdateStudent(Student student) {
-        return null;
+    private void viewAllCourses() {
+        if (programs.isEmpty()) {
+            view.showMessage("No courses found");
+            return;
+        }
+        view.showMessage("\n=== All Courses ===");
+        for (Program p : programs) {
+            view.showMessage("Course: " + p.getProgramName() + " (" + p.getModulesTaught().size() + " modules)");
+            for (Module m : p.getModulesTaught()) {
+                view.showMessage("  - " + m.getModuleCode() + ": " + m.getModuleName() + 
+                                " (" + m.getSessions().size() + 1 + " sessions)");
+            }
+        }
     }
 
-    /**
-     * Delete student.
-     *
-     * @param student the student
-     * @return the student
-     */
-    public Student DeleteStudent(Student student) {
-        return null;
+    private void viewAllStudents() {
+        if (students.isEmpty()) {
+            view.showMessage("No students found");
+            return;
+        }
+        view.showMessage("\n=== All Students ===");
+        for (Student s : students) {
+            view.showMessage("ID: " + s.getStudentID() + " | Name: " + s.getName() + 
+                           " | Age: " + s.getAge() + 
+                           " | Course: " + (s.getProgram() != null ? s.getProgram().getProgramName() : "None") +
+                           " | Year: " + s.getYearOfStudy());
+        }
     }
 
-    /**
-     * Gets all students.
-     *
-     * @return the all students
-     */
+    private void enrollStudentInCourse() {
+        if (students.isEmpty()) {
+            view.showMessage("No students available");
+            return;
+        }
+        if (programs.isEmpty()) {
+            view.showMessage("No courses available");
+            return;
+        }
+        int studentID = view.selectStudent(students);
+        String programName = view.selectProgram(programs);
+        
+        if (studentID == -1 || programName == null) {
+            return;
+        }
+        
+        Student student = null;
+        for (Student s : students) {
+            if (s.getStudentID() == studentID) {
+                student = s;
+                break;
+            }
+        }
+        
+        Program program = null;
+        for (Program p : programs) {
+            if (p.getProgramName().equals(programName)) {
+                program = p;
+                break;
+            }
+        }
+            
+        if (student == null || program == null) {
+            return;
+        }
+        
+        Random random = new Random();
+        
+        for (Module module : program.getModulesTaught()) {
+            module.addEnrolledStudent(student);
+            
+            Map<Session, List<Group>> groupsBySession = new HashMap<>();
+            for (Group group : module.getSessions()) {
+                Session session = group.getSession();
+                List<Group> sessionGroups = groupsBySession.get(session);
+                if (sessionGroups == null) {
+                    sessionGroups = new ArrayList<>();
+                    groupsBySession.put(session, sessionGroups);
+                }
+                sessionGroups.add(group);
+            }
+            
+            for (List<Group> sessionGroups : groupsBySession.values()) {
+                if (!sessionGroups.isEmpty()) {
+                    Group randomGroup = sessionGroups.get(random.nextInt(sessionGroups.size()));
+                    try {
+                        student.addGroup(randomGroup);
+                    } catch (IllegalArgumentException ignored) {
+                    }
+                }
+            }
+        }
+        
+        try {
+            student.setProgram(program);
+            view.showMessage("Student " + student.getName() + " enrolled in course " + programName);
+        } catch (IllegalArgumentException e) {
+            view.showMessage("Error: " + e.getMessage());
+        }
+    }
+
+    public void createStudent() {
+        Student student = view.addStudent();
+        if (student != null) {
+            students.add(student);
+            view.showMessage("Student created successfully");
+        }
+    }
+
     public List<Student> getAllStudents() {
-        return null;
+        return new ArrayList<>(students);
     }
 
-    /**
-     * Gets students by name.
-     *
-     * @param firstName the first name
-     * @param lastName  the last name
-     * @return the students by name
-     */
-    public List<Student> getStudentsByName(String firstName, String lastName) {
-        return null;
+    public List<Program> getAllPrograms() {
+        return new ArrayList<>(programs);
     }
 
-    /**
-     * Gets all modules.
-     *
-     * @return the all modules
-     */
-    public List<Module> getAllModules() {
-        return null;
-    }
-
-    /**
-     * Gets all sessions for module.
-     *
-     * @param module the module
-     * @return the all sessions for module
-     */
-    public List<Session> getAllSessionsForModule(Module module) {
-        return null;
-    }
-
-    /**
-     * Create a laboratory.
-     *
-     * @param laboratory the laboratory
-     * @return the laboratory
-     */
-    public Laboratory createLaboratory(Laboratory laboratory) {
-        return null;
-    }
-
-    /**
-     * Update laboratory.
-     *
-     * @param laboratory the laboratory
-     * @return the laboratory
-     */
-    public Laboratory updateLaboratory(Laboratory laboratory) {
-        return null;
-    }
-
-    /**
-     * Delete laboratory.
-     *
-     * @param laboratory the laboratory
-     * @return the laboratory
-     */
-    public Laboratory DeleteLaboratory(Laboratory laboratory) {
-        return null;
-    }
-
-    /**
-     * Gets all laboratories.
-     *
-     * @return the all laboratories
-     */
-    public List<Laboratory> getAllLaboratories() {
-        return null;
+    private void viewAsStudent() {
+        if (students.isEmpty()) {
+            view.showMessage("No students available");
+            return;
+        }
+        int studentID = view.selectStudent(students);
+        if (studentID == -1) {
+            return;
+        }
+        
+        Student student = null;
+        for (Student s : students) {
+            if (s.getStudentID() == studentID) {
+                student = s;
+                break;
+            }
+        }
+        
+        if (student == null) {
+            view.showMessage("Student not found");
+            return;
+        }
+        
+        StudentConsoleView studentView = new StudentConsoleView();
+        StudentController studentController = new StudentController(student, studentView);
+        studentController.start();
     }
 }
-

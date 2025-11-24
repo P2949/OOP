@@ -1,119 +1,108 @@
 package controllers;
 
-import models.*;
+import models.Group;
+import models.Laboratory;
+import models.Lecture;
 import models.Module;
-import views.View;
+import models.Student;
+import models.Tutorial;
+import views.StudentView;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
+import java.util.Scanner;
 
-/**
- * The type Student controller.
- */
 public class StudentController {
+    private final Student student;
+    private final StudentView view;
+    private final Scanner scanner = new Scanner(System.in);
 
-    /**
-     * The View.
-     */
-    final View view;
-    /**
-     * The Student.
-     */
-    final Student student;
-    /**
-     * The Db controller.
-     */
-    final DatabaseController dbController = new DatabaseController();
-
-    /**
-     * Instantiates a new Student controller.
-     *
-     * @param student the student
-     * @param view    the view
-     */
-    public StudentController(Student student, View view) {
+    public StudentController(Student student, StudentView view) {
         this.student = student;
         this.view = view;
     }
 
-    /**
-     * Gets modules.
-     *
-     * @return the modules
-     */
+    public void start() {
+        boolean running = true;
+        while (running) {
+            System.out.println("\n=== Student View: " + student.getName() + " ===");
+            System.out.println("1. View Timetable");
+            System.out.println("2. View Modules");
+            System.out.println("3. View Lectures");
+            System.out.println("4. View Tutorials");
+            System.out.println("5. View Laboratories");
+            System.out.println("0. Back to Admin Menu");
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
+            
+            switch (choice) {
+                case 1:
+                    view.displayTimeTable(student);
+                    break;
+                case 2:
+                    view.displayModules(getModules());
+                    break;
+                case 3:
+                    view.displayLectures(getLectures());
+                    break;
+                case 4:
+                    view.displayTutorials(getTutorials());
+                    break;
+                case 5:
+                    view.displayLaboratories(getLaboratories());
+                    break;
+                case 0:
+                    running = false;
+                    break;
+                default:
+                    view.showMessage("Invalid option");
+                    break;
+            }
+        }
+    }
+
     public List<Module> getModules() {
+        if (student.getProgram() == null) {
+            return new ArrayList<>();
+        }
         return new ArrayList<>(student.getProgram().getModulesTaught());
     }
 
-    /**
-     * Gets laboratories.
-     *
-     * @return the laboratories
-     */
-    public List<Laboratory> getLaboratories()
-    {
-        List<Laboratory> lab = new LinkedList<>();
-        ListIterator<Group> groupIterator = this.student.getGroups().listIterator();
-        while (groupIterator.hasNext()) {
-            if (groupIterator.next().getSession().getClass().equals(Laboratory.class)) {
-                lab.add((Laboratory) groupIterator.next().getSession());
+    public List<Laboratory> getLaboratories() {
+        List<Laboratory> labs = new ArrayList<>();
+        for (Group group : student.getGroups()) {
+            if (group.getSession() instanceof Laboratory) {
+                labs.add((Laboratory) group.getSession());
             }
         }
-        return new ArrayList<>(lab);
+        return labs;
     }
 
-    /**
-     * Gets tutorials.
-     *
-     * @return the tutorials
-     */
     public List<Tutorial> getTutorials() {
-        List<Tutorial> tut = new LinkedList<>();
-        ListIterator<Group> groupIterator = this.student.getGroups().listIterator();
-        while (groupIterator.hasNext()) {
-            if (groupIterator.next().getSession().getClass().equals(Tutorial.class)) {
-                tut.add((Tutorial) groupIterator.next().getSession());
+        List<Tutorial> tuts = new ArrayList<>();
+        for (Group group : student.getGroups()) {
+            if (group.getSession() instanceof Tutorial) {
+                tuts.add((Tutorial) group.getSession());
             }
         }
-        return new ArrayList<>(tut);
+        return tuts;
     }
 
-    /**
-     * Gets lectures.
-     *
-     * @return the lectures
-     * @throws Exception the exception
-     */
-    public List<Lecture> getLectures() throws Exception {
-        if (this.student.getGroups().isEmpty()) {
-            int x = dbController.Search(Path.of("./csv/Group.csv"), String.valueOf(this.student.getStudentID()));
-            if (x == -1) throw new Exception("Student not found");
-            else {
-                // I still have no idea how we are going to be saving data to the csv files,
-                // so i'm not really able to write code to parse it, and load it.
-                //TODO figure this out ;(
+    public List<Lecture> getLectures() {
+        List<Lecture> lectures = new ArrayList<>();
+        if (student.getProgram() != null) {
+            for (Module module : student.getProgram().getModulesTaught()) {
+                for (Group group : module.getSessions()) {
+                    if (group.getSession() instanceof Lecture) {
+                        lectures.add((Lecture) group.getSession());
+                    }
+                }
             }
         }
-        List<Lecture> lec = new LinkedList<>();
-        ListIterator<Group> groupIterator = this.student.getGroups().listIterator();
-        while (groupIterator.hasNext()) {
-            if (groupIterator.next().getSession().getClass().equals(Lecture.class)) {
-                lec.add((Lecture) groupIterator.next().getSession());
-            }
-        }
-        return new ArrayList<>(lec);
+        return lectures;
     }
 
-
-    /**
-     * Gets the current student.
-     *
-     * @return the current student
-     */
     public Student getCurrentStudent() {
-        return this.student;
+        return student;
     }
 }
