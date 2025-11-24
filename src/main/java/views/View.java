@@ -1,5 +1,8 @@
 package views;
 
+/**
+ * The interface View.
+ */
 public interface View {
 
     /**
@@ -38,11 +41,11 @@ public interface View {
     ConsoleView.SessionInput addSession();
 
     /**
-     * Show message to the user
+     * Show a message to the user
      *
      * @param message text to display
      */
     default void showMessage(String message) {
-        System.out.println(message);
+        IO.println(message);
     }
 }

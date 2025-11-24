@@ -10,6 +10,9 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * The type Student.
+ */
 public class Student extends Person implements CSVModel {
 
     private static int studentCounter;
@@ -18,6 +21,14 @@ public class Student extends Person implements CSVModel {
     private int yearOfStudy;
     private final List<Group> groups = new LinkedList<>();
 
+    /**
+     * Instantiates a new Student.
+     *
+     * @param name        the name
+     * @param age         the age
+     * @param program     the program
+     * @param yearOfStudy the year of study
+     */
     public Student(String name, int age, Program program, int yearOfStudy) {
         super(name, age);
         studentCounter++;
@@ -26,18 +37,38 @@ public class Student extends Person implements CSVModel {
         this.yearOfStudy = yearOfStudy;
     }
 
+    /**
+     * Gets student id.
+     *
+     * @return the student id
+     */
     public int getStudentID() {
         return studentID;
     }
 
+    /**
+     * Sets student id.
+     *
+     * @param studentID the student id
+     */
     public void setStudentID(int studentID) {
         this.studentID = studentID;
     }
 
+    /**
+     * Gets program.
+     *
+     * @return the program
+     */
     public Program getProgram() {
         return this.program;
     }
 
+    /**
+     * Sets program.
+     *
+     * @param program the program
+     */
     public void setProgram(@NotNull Program program) {
         if (program.getModulesTaught().isEmpty()) {
             throw new IllegalArgumentException("Cannot set program: no modules taught.");
@@ -61,18 +92,38 @@ public class Student extends Person implements CSVModel {
         this.program = program;
     }
 
+    /**
+     * Gets year of study.
+     *
+     * @return the year of study
+     */
     public int getYearOfStudy() {
         return yearOfStudy;
     }
 
+    /**
+     * Sets year of study.
+     *
+     * @param yearOfStudy the year of study
+     */
     public void setYearOfStudy(int yearOfStudy) {
         this.yearOfStudy = yearOfStudy;
     }
 
+    /**
+     * Gets groups.
+     *
+     * @return the groups
+     */
     public List<Group> getGroups() {
         return new LinkedList<>(groups);
     }
 
+    /**
+     * Add group.
+     *
+     * @param group the group
+     */
     public void addGroup(@NotNull Group group) {
         if (!group.getSession().getModule().getEnrolledStudents().contains(this)) {
             throw new IllegalArgumentException("Cannot add group: either already on that group or not enrolled in the module.");
@@ -81,7 +132,7 @@ public class Student extends Person implements CSVModel {
         if (this.groups.contains(group)) {
             return; // Already in this group, nothing to do
         }
-        // Check if already in a different group with same ID for the same session
+        // Check if already in a different group with the same ID for the same session
         for (Group g : this.groups) {
             if (g.getGroupID() == group.getGroupID() && g.getSession().equals(group.getSession())) {
                 throw new IllegalArgumentException("Cannot add group: already on that group.");
@@ -93,6 +144,11 @@ public class Student extends Person implements CSVModel {
         }
     }
 
+    /**
+     * Remove group.
+     *
+     * @param group the group
+     */
     public void removeGroup(Group group) {
         if (this.groups.remove(group)) {
             if (group.getStudents().contains(this)) {
@@ -101,10 +157,18 @@ public class Student extends Person implements CSVModel {
         }
     }
 
+    /**
+     * Clear groups.
+     */
     public void clearGroups() {
         this.groups.clear();
     }
 
+    /**
+     * Gets student count.
+     *
+     * @return the student count
+     */
     public int getStudentCount() {
         return studentCounter;
     }
@@ -114,7 +178,7 @@ public class Student extends Person implements CSVModel {
         String groupIDs = groups.stream()
             .map(g -> {
                 Session s = g.getSession();
-                return String.valueOf(g.getGroupID()) + ":" +
+                return g.getGroupID() + ":" +
                        s.getClass().getSimpleName() + ":" +
                        s.getModule().getModuleCode() + ":" +
                        s.getDay() + ":" +

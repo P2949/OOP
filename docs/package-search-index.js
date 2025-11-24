@@ -1,1 +1,6 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"controllers"},{"l":"models"},{"l":"views"}];updateSearchResults();
+packageSearchIndex = [{
+    "l": "All Packages",
+    "u": "allpackages-index.html",
+    "k": "18"
+}, {"l": "controllers"}, {"l": "models"}, {"l": "views"}];
+updateSearchResults();

@@ -10,21 +10,49 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
+/**
+ * The type Student controller.
+ */
 public class StudentController {
 
-    View view;
-    Student student;
-    DatabaseController dbController = new DatabaseController();
+    /**
+     * The View.
+     */
+    final View view;
+    /**
+     * The Student.
+     */
+    final Student student;
+    /**
+     * The Db controller.
+     */
+    final DatabaseController dbController = new DatabaseController();
 
+    /**
+     * Instantiates a new Student controller.
+     *
+     * @param student the student
+     * @param view    the view
+     */
     public StudentController(Student student, View view) {
         this.student = student;
         this.view = view;
     }
 
+    /**
+     * Gets modules.
+     *
+     * @return the modules
+     */
     public List<Module> getModules() {
         return new ArrayList<>(student.getProgram().getModulesTaught());
     }
 
+    /**
+     * Gets laboratories.
+     *
+     * @return the laboratories
+     */
     public List<Laboratory> getLaboratories()
     {
         List<Laboratory> lab = new LinkedList<>();
@@ -37,6 +65,11 @@ public class StudentController {
         return new ArrayList<>(lab);
     }
 
+    /**
+     * Gets tutorials.
+     *
+     * @return the tutorials
+     */
     public List<Tutorial> getTutorials() {
         List<Tutorial> tut = new LinkedList<>();
         ListIterator<Group> groupIterator = this.student.getGroups().listIterator();
@@ -48,6 +81,12 @@ public class StudentController {
         return new ArrayList<>(tut);
     }
 
+    /**
+     * Gets lectures.
+     *
+     * @return the lectures
+     * @throws Exception the exception
+     */
     public List<Lecture> getLectures() throws Exception {
         if (this.student.getGroups().isEmpty()) {
             int x = dbController.Search(Path.of("./csv/Group.csv"), String.valueOf(this.student.getStudentID()));
@@ -69,7 +108,11 @@ public class StudentController {
     }
 
 
-
+    /**
+     * Gets the current student.
+     *
+     * @return the current student
+     */
     public Student getCurrentStudent() {
         return this.student;
     }
