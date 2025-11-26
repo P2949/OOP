@@ -233,7 +233,7 @@ public class Module implements CSVModel {
         return new String[]{
             moduleCode,
             moduleName,
-                lecturer != null ? lecturer.getStaffID() : "", // I dont know if this is needed
+                lecturer != null ? lecturer.getStaffID() : "", // I don't know if this is needed
             String.valueOf(lengthInWeeks),
             String.valueOf(startWeek),
             sessionIDs,

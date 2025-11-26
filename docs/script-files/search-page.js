@@ -11,7 +11,6 @@ $(function () {
     var expand = $("#page-search-expand");
     var searchLink = $("span#page-search-link");
     var redirect = $("input#search-redirect");
-
     function setSearchUrlTemplate() {
         var href = document.location.href.split(/[#?]/)[0];
         href += "?q=" + "%s";
@@ -21,12 +20,10 @@ $(function () {
         searchLink.html(href);
         copy[0].onmouseenter();
     }
-
     function copyLink(e) {
         copyToClipboard(this.previousSibling.innerText);
         switchCopyLabel(this, this.lastElementChild);
     }
-
     copy.on("click", copyLink);
     copy[0].onmouseenter = function () {
     };
@@ -57,7 +54,6 @@ $(window).on("load", function () {
     var visibleTabs = [];
     var feelingLucky = false;
     const MIN_TABBED_RESULTS = 10;
-
     function renderResults(result) {
         if (!result.length) {
             notify.html(messages.noResult);
@@ -132,7 +128,6 @@ $(window).on("load", function () {
             renderTable(activeTab, r[activeTab]).appendTo(resultContainer);
         }
         resultSection.show();
-
         function renderResult(category, button) {
             activeTab = category;
             setSearchUrl();
@@ -142,11 +137,9 @@ $(window).on("load", function () {
             button.addClass("active-table-tab").attr("tabIndex", "0");
         }
     }
-
     function selectTab(category) {
         $("button#result-tab-" + category).focus().trigger("click");
     }
-
     function renderTable(category, items) {
         var table = $("<div class='result-table'>");
         var col1, col2;
@@ -171,19 +164,16 @@ $(window).on("load", function () {
         });
         return table;
     }
-
     function select() {
         if (!this.classList.contains("selected")) {
             setSelected(this);
         }
     }
-
     function unselect() {
         if (this.classList.contains("selected")) {
             setSelected(null);
         }
     }
-
     function renderItem(item, table) {
         var label = getResultLabel(item);
         var desc = getResultDescription(item);
@@ -199,9 +189,7 @@ $(window).on("load", function () {
             .append($("<span/>").addClass("search-result-desc").html(desc))
             .appendTo(table);
     }
-
     var timeout;
-
     function schedulePageSearch() {
         if (timeout) {
             clearTimeout(timeout);
@@ -210,7 +198,6 @@ $(window).on("load", function () {
             doPageSearch()
         }, 100);
     }
-
     function doPageSearch() {
         setSearchUrl();
         var term = searchTerm = input.val().trim();
@@ -226,7 +213,6 @@ $(window).on("load", function () {
             doSearch({term: term, maxResults: 1200, module: module}, renderResults);
         }
     }
-
     function setSearchUrl() {
         var query = input.val().trim();
         var url = document.location.pathname;
@@ -247,7 +233,6 @@ $(window).on("load", function () {
         reset.css("visibility", input.val() ? "visible" : "hidden");
         schedulePageSearch();
     });
-
     function setSelected(link) {
         if (selectedLink) {
             selectedLink.classList.remove("selected");
@@ -259,7 +244,6 @@ $(window).on("load", function () {
         }
         selectedLink = link;
     }
-
     document.addEventListener("keydown", e => {
         if (e.ctrlKey || e.altKey || e.metaKey) {
             return;

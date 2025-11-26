@@ -38,7 +38,7 @@ public class Student extends Person implements CSVModel {
     }
 
     /**
-     * Gets student id.
+     * Gets a student id.
      *
      * @return the student id
      */

@@ -9,7 +9,7 @@ import views.StudentConsoleView;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Are you an admin or student? (admin/student)");

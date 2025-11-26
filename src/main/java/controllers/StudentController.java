@@ -1,11 +1,7 @@
 package controllers;
 
-import models.Group;
-import models.Laboratory;
-import models.Lecture;
+import models.*;
 import models.Module;
-import models.Student;
-import models.Tutorial;
 import views.StudentView;
 
 import java.util.ArrayList;

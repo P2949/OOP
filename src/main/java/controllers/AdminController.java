@@ -1,23 +1,15 @@
 package controllers;
 
-import models.Group;
-import models.Lecturer;
+import models.*;
 import models.Module;
-import models.Program;
-import models.Session;
-import models.Student;
 import views.AdminView;
 import views.StudentConsoleView;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class AdminController {
     private final AdminView view;
+    private final DatabaseController dbController = new DatabaseController();
     private final List<Student> students = new ArrayList<>();
     private final List<Lecturer> lecturers = new ArrayList<>();
     private final List<Program> programs = new ArrayList<>();
@@ -26,7 +18,9 @@ public class AdminController {
     private final List<Group> groups = new ArrayList<>();
 
     public AdminController(AdminView view) {
+
         this.view = view;
+        loadExistingData(); // Load data on startup
     }
 
     public void start() {
@@ -153,11 +147,7 @@ public class AdminController {
             Map<Session, List<Group>> groupsBySession = new HashMap<>();
             for (Group group : module.getSessions()) {
                 Session session = group.getSession();
-                List<Group> sessionGroups = groupsBySession.get(session);
-                if (sessionGroups == null) {
-                    sessionGroups = new ArrayList<>();
-                    groupsBySession.put(session, sessionGroups);
-                }
+                List<Group> sessionGroups = groupsBySession.computeIfAbsent(session, k -> new ArrayList<>());
                 sessionGroups.add(group);
             }
             
@@ -222,5 +212,34 @@ public class AdminController {
         StudentConsoleView studentView = new StudentConsoleView();
         StudentController studentController = new StudentController(student, studentView);
         studentController.start();
+    }
+
+    /**
+     * Load existing data from CSV files if available.
+     */
+    private void loadExistingData() {
+        try {
+            if (dbController.hasMissingData("Student") ||
+                    dbController.hasMissingData("Module") ||
+                    dbController.hasMissingData("Program")) {
+
+                view.showMessage("Found existing data in CSV files. Loading...");
+
+                DataLoader loader = new DataLoader(dbController);
+                loader.loadAllData();
+
+                // Populate lists from loaded data
+                students.addAll(loader.getStudents());
+                lecturers.addAll(loader.getLecturers());
+                programs.addAll(loader.getPrograms());
+                modules.addAll(loader.getModules());
+                sessions.addAll(loader.getSessions());
+                groups.addAll(loader.getGroups());
+
+                view.showMessage("Successfully loaded data from CSV files!");
+            }
+        } catch (Exception e) {
+            view.showMessage("Warning: Could not load existing data: " + e.getMessage());
+        }
     }
 }

@@ -1,10 +1,7 @@
 package views;
 
-import models.Laboratory;
-import models.Lecture;
+import models.*;
 import models.Module;
-import models.Student;
-import models.Tutorial;
 
 import java.util.List;
 

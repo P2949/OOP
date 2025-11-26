@@ -1,11 +1,8 @@
 package views;
 
-import models.Group;
-import models.Laboratory;
-import models.Lecture;
+import models.*;
 import models.Module;
-import models.Student;
-import models.Tutorial;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +10,7 @@ import java.util.List;
 public class StudentConsoleView implements StudentView {
 
     @Override
-    public void displayTimeTable(Student student) {
+    public void displayTimeTable(@NotNull Student student) {
         System.out.println("\n=== Timetable for " + student.getName() + " ===");
         System.out.println("Student ID: " + student.getStudentID());
         System.out.println("Course: " + (student.getProgram() != null ? student.getProgram().getProgramName() : "None"));
@@ -45,7 +42,7 @@ public class StudentConsoleView implements StudentView {
     }
 
     @Override
-    public void displayModules(List<Module> modules) {
+    public void displayModules(@NotNull List<Module> modules) {
         if (modules.isEmpty()) {
             System.out.println("No modules found.");
             return;
@@ -61,7 +58,7 @@ public class StudentConsoleView implements StudentView {
     }
 
     @Override
-    public void displayLaboratories(List<Laboratory> laboratories) {
+    public void displayLaboratories(@NotNull List<Laboratory> laboratories) {
         if (laboratories.isEmpty()) {
             return;
         }
@@ -76,7 +73,7 @@ public class StudentConsoleView implements StudentView {
     }
 
     @Override
-    public void displayTutorials(List<Tutorial> tutorials) {
+    public void displayTutorials(@NotNull List<Tutorial> tutorials) {
         if (tutorials.isEmpty()) {
             return;
         }
@@ -91,7 +88,7 @@ public class StudentConsoleView implements StudentView {
     }
 
     @Override
-    public void displayLectures(List<Lecture> lectures) {
+    public void displayLectures(@NotNull List<Lecture> lectures) {
         if (lectures.isEmpty()) {
             return;
         }

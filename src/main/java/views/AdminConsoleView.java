@@ -1,15 +1,8 @@
 package views;
 
-import models.Lecturer;
+import models.*;
 import models.Module;
-import models.Program;
-import models.Room;
-import models.Session;
-import models.Student;
-import models.Lecture;
-import models.Laboratory;
-import models.Tutorial;
-import models.Group;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -144,21 +137,25 @@ public class AdminConsoleView implements AdminView {
                 scanner.nextLine();
                 
                 Room room = new Room(roomNumber, capacity, roomType, building);
-                Session session = null;
-                
-                if (sessionType.equals("lecture")) {
-                    session = new Lecture(module, lecturer, room, day, sessionStartWeek, startTime, endTime, endWeek);
-                    new Group('A', session); // this kinda defeats the puprose of our group idea, im too tired.
-                } else if (sessionType.equals("lab")) {
-                    session = new Laboratory(module, lecturer, room, day, sessionStartWeek, startTime, endTime, endWeek);
-                    System.out.print("  Group ID (A, B, C, etc.): ");
-                    char groupID = scanner.nextLine().charAt(0);
-                    new Group(groupID, session);
-                } else if (sessionType.equals("tutorial")) {
-                    session = new Tutorial(module, lecturer, room, day, sessionStartWeek, startTime, endTime, endWeek);
-                    System.out.print("  Group ID (A, B, C, etc.): ");
-                    char groupID = scanner.nextLine().charAt(0);
-                    new Group(groupID, session);
+                Session session;
+
+                switch (sessionType) {
+                    case "lecture" -> {
+                        session = new Lecture(module, lecturer, room, day, sessionStartWeek, startTime, endTime, endWeek);
+                        new Group('A', session); // this kinda defeats the purpose of our group idea, im too tired.
+                    }
+                    case "lab" -> {
+                        session = new Laboratory(module, lecturer, room, day, sessionStartWeek, startTime, endTime, endWeek);
+                        System.out.print("  Group ID (A, B, C, etc.): ");
+                        char groupID = scanner.nextLine().charAt(0);
+                        new Group(groupID, session);
+                    }
+                    case "tutorial" -> {
+                        session = new Tutorial(module, lecturer, room, day, sessionStartWeek, startTime, endTime, endWeek);
+                        System.out.print("  Group ID (A, B, C, etc.): ");
+                        char groupID = scanner.nextLine().charAt(0);
+                        new Group(groupID, session);
+                    }
                 }
             }
         }
@@ -167,7 +164,7 @@ public class AdminConsoleView implements AdminView {
     }
 
     @Override
-    public String selectProgram(List<Program> programs) {
+    public String selectProgram(@NotNull List<Program> programs) {
         System.out.println("\n=== Select Course ===");
         for (int i = 0; i < programs.size(); i++) {
             System.out.println((i + 1) + ". " + programs.get(i).getProgramName());
@@ -182,7 +179,7 @@ public class AdminConsoleView implements AdminView {
     }
 
     @Override
-    public int selectStudent(List<Student> students) {
+    public int selectStudent(@NotNull List<Student> students) {
         System.out.println("\n=== Select Student ===");
         for (int i = 0; i < students.size(); i++) {
             System.out.println((i + 1) + ". ID: " + students.get(i).getStudentID() + " - " + students.get(i).getName());

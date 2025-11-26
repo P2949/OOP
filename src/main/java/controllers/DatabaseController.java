@@ -97,8 +97,8 @@ public class DatabaseController {
      * @throws Exception the exception
      */
     public void save(@NotNull CSVModel model) throws Exception {
-        String className = model.getClass().getSimpleName();
-        Path path = Paths.get("./csv/" + className + ".csv");
+        String entityType = model.getClass().getSimpleName();
+        Path path = getCSVPath(entityType);
         String[] row = model.toCSVRow();
         List<String[]> lines = readAllLines(path);
 
@@ -109,13 +109,13 @@ public class DatabaseController {
 
         // Check for duplicates using an entity-specific key
         //  Currently, the default action is to overwrite because it works nicely with everything else
-        if (isDuplicate(lines, row, className)) {
-            System.out.println("Duplicate " + className + " Overwriting (harmless?)");
-            int existingIndex = findDuplicateIndex(lines, row, className);
+        if (isDuplicate(lines, row, entityType)) {
+            System.out.println("Duplicate " + entityType + " Overwriting (harmless?)");
+            int existingIndex = findDuplicateIndex(lines, row, entityType);
             if (existingIndex != -1) {
                 lines.set(existingIndex, row);
             } else {
-                System.out.println("Duplicate " + className + " not found");
+                System.out.println("Duplicate " + entityType + " not found");
                 lines.add(row); // if this happens, something is wrong, very wrong
             }
         } else {
@@ -231,5 +231,112 @@ public class DatabaseController {
 
         lines.remove(lineIndex);
         writeAllLines(lines, path);
+    }
+
+    /**
+     * Check if data is missing from memory and needs to be loaded from CSV.
+     *
+     * @param entityType the entity class name
+     * @return true if a CSV file exists and has data
+     * @throws Exception the exception
+     */
+    public boolean hasMissingData(String entityType) throws Exception {
+        Path path = getCSVPath(entityType);
+        if (!Files.exists(path)) {
+            return false;
+        }
+
+        List<String[]> lines = readAllLines(path);
+        // CSV has data if it has more than just the header row,
+        // kind of a dummy way of checking for data, but it'll do for now.
+        return lines.size() > 1;
+    }
+
+    /**
+     * Load all data from CSV files for a specific entity type.
+     *
+     * @param entityType the entity class name (e.g., "Student", "Module")
+     * @return list of CSV rows (excluding header)
+     * @throws Exception the exception
+     */
+    public List<String[]> loadAllFromCSV(String entityType) throws Exception {
+        Path path = getCSVPath(entityType);
+        List<String[]> lines = readAllLines(path);
+
+        if (lines.isEmpty()) { // don't think this will ever happen, but just in case
+            return new ArrayList<>();
+        }
+
+
+        // Remove header and return data rows
+        return new ArrayList<>(lines.subList(1, lines.size()));
+    }
+
+    /**
+     * Get a CSV file path for an entity type.
+     *
+     * @param entityType the entity class name
+     * @return the path to the CSV file
+     * <p>
+     * we should probably start using a method to do this
+     */
+    public Path getCSVPath(String entityType) {
+        return Paths.get("./csv/" + entityType + ".csv");
+    }
+
+    /**
+     * Check if a specific entity exists in CSV by primary key.
+     *
+     * @param entityType      the entity type
+     * @param primaryKeyValue the primary key value to search for
+     * @return true if an entity exists in CSV
+     * @throws Exception the exception
+     */
+    public boolean existsInCSV(String entityType, String primaryKeyValue) throws Exception {
+        Path path = getCSVPath(entityType);
+        if (!Files.exists(path)) {
+            return false;
+        }
+
+        List<String[]> lines = readAllLines(path);
+        int[] keyColumns = getPrimaryKeyColumns(entityType);
+
+        // Start from index 1 to skip the header
+        //it'll check with the primary key only, should be fine tho.
+        for (int i = 1; i < lines.size(); i++) {
+            String[] row = lines.get(i);
+            if (row.length > keyColumns[0] && row[keyColumns[0]].equals(primaryKeyValue)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Load a specific entity from CSV by the primary key.
+     *
+     * @param entityType      the entity type
+     * @param primaryKeyValue the primary key value
+     * @return the CSV row data, or null if not found
+     * @throws Exception the exception
+     */
+    public String[] loadFromCSVByKey(String entityType, String primaryKeyValue) throws Exception {
+        Path path = getCSVPath(entityType);
+        if (!Files.exists(path)) {
+            return null;
+        }
+
+        List<String[]> lines = readAllLines(path);
+        int[] keyColumns = getPrimaryKeyColumns(entityType);
+
+        for (int i = 1; i < lines.size(); i++) {
+            String[] row = lines.get(i);
+            if (row.length > keyColumns[0] && row[keyColumns[0]].equals(primaryKeyValue)) {
+                return row;
+            }
+        }
+
+        return null;
     }
 }

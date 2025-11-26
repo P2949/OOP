@@ -104,7 +104,7 @@ public class Room implements CSVModel {
     }
 
     /**
-     * Set room number.
+     * Set a room number.
      *
      * @param roomNumber the room number
      */

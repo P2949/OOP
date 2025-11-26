@@ -62,15 +62,12 @@ const MAX_RESULTS = 300;
 const UNICODE_LETTER = 0;
 const UNICODE_DIGIT = 1;
 const UNICODE_OTHER = 2;
-
 function checkUnnamed(name, separator) {
     return name === "<Unnamed>" || !name ? "" : name + separator;
 }
-
 function escapeHtml(str) {
     return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
-
 function getHighlightedText(str, boundaries, from, to) {
     var start = from;
     var text = "";
@@ -89,7 +86,6 @@ function getHighlightedText(str, boundaries, from, to) {
     text += escapeHtml(str.slice(start, to));
     return text;
 }
-
 function getURLPrefix(item, category) {
     var urlPrefix = "";
     var slash = "/";
@@ -112,7 +108,6 @@ function getURLPrefix(item, category) {
     }
     return urlPrefix;
 }
-
 function getURL(item, category) {
     if (item.url) {
         return item.url;
@@ -145,7 +140,6 @@ function getURL(item, category) {
     item.url = url;
     return url;
 }
-
 function createMatcher(term, camelCase) {
     if (camelCase && !isUpperCase(term)) {
         return null;  // no need for camel-case matcher for lower case query
@@ -177,12 +171,10 @@ function createMatcher(term, camelCase) {
     re.upperCase = upperCase;
     return re;
 }
-
 // Unicode regular expressions do not allow certain characters to be escaped
 function escapeUnicodeRegex(pattern) {
     return pattern.replace(/[\[\]{}()*+?.\\^$|\s]/g, '\\$&');
 }
-
 function findMatch(matcher, input, startOfName, endOfName, prefixLength) {
     var from = startOfName;
     matcher.lastIndex = from;
@@ -262,23 +254,18 @@ function findMatch(matcher, input, startOfName, endOfName, prefixLength) {
         boundaries: boundaries
     } : NO_MATCH;
 }
-
 function isLetter(s) {
     return /\p{L}/u.test(s);
 }
-
 function isUpperCase(s) {
     return /\p{Lu}/u.test(s);
 }
-
 function isLowerCase(s) {
     return /\p{Ll}/u.test(s);
 }
-
 function isDigit(s) {
     return /\p{Nd}/u.test(s);
 }
-
 function getCharType(s) {
     if (isLetter(s)) {
         return UNICODE_LETTER;
@@ -288,14 +275,12 @@ function getCharType(s) {
         return UNICODE_OTHER;
     }
 }
-
 function rateDistance(str) {
     // Rate distance of string by counting word boundaries and camel-case tokens
     return !str ? 0
         : (str.split(/\b|(?<=[\p{Ll}_])\p{Lu}/u).length * 0.1
             + (isUpperCase(str[0]) ? 0.08 : 0));
 }
-
 function doSearch(request, response) {
     var term = request.term.trim();
     var maxResults = request.maxResults || MAX_RESULTS;
@@ -317,14 +302,12 @@ function doSearch(request, response) {
                 return "";
         }
     }
-
     function getClassPrefix(item, category) {
         if (category === "members" && (!item.k || (item.k < 8 && item.k !== "3"))) {
             return item.c + ".";
         }
         return "";
     }
-
     function searchIndex(indexArray, category) {
         var matches = [];
         if (!indexArray) {
@@ -393,7 +376,6 @@ function doSearch(request, response) {
     }
     response(result);
 }
-
 // JQuery search menu implementation
 $.widget("custom.catcomplete", $.ui.autocomplete, {
     _create: function () {
@@ -462,14 +444,12 @@ $.widget("custom.catcomplete", $.ui.autocomplete, {
         ));
     }
 });
-
 function getResultLabel(item) {
     if (item.l) {
         return item.l;
     }
     return getHighlightedText(item.name, item.boundaries, 0, item.name.length);
 }
-
 function getResultDescription(item) {
     if (!item.indexItem) {
         return "";
@@ -508,11 +488,9 @@ function getResultDescription(item) {
     }
     return "";
 }
-
 function getEnclosingDescription(elem, desc, label) {
     return inDesc.replace("{0}", elem).replace("{1}", desc + " " + label);
 }
-
 function getEnclosingTypeDesc(item) {
     if (!item.typeDesc) {
         $.each(typeSearchIndex, function (index, it) {
