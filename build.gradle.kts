@@ -1,5 +1,7 @@
 plugins {
     id("java")
+    kotlin("jvm") version "2.1.0"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = "org.example"
@@ -8,6 +10,33 @@ version = "1.0-SNAPSHOT"
 repositories {
     mavenCentral()
     google()
+}
+tasks.shadowJar {
+    manifest {
+        attributes(
+            "Main-Class" to "app.Main.Class"
+        )
+    }
+
+    // Shadow plugin automatically excludes signature files
+    mergeServiceFiles()
+}
+
+tasks.jar {
+    manifest {
+        attributes(
+            "Main-Class" to "app.Main.Class"
+        )
+    }
+
+    // Create a fat JAR with dependencies
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
+
+    // Exclude signature files to prevent SecurityException
+    exclude("META-INF/*.SF")
+    exclude("META-INF/*.DSA")
+    exclude("META-INF/*.RSA")
 }
 
 dependencies {
@@ -24,7 +53,6 @@ tasks.test {
     useJUnitPlatform()
     failOnNoDiscoveredTests = false
 
-    // Force JDK 21 for tests
     javaLauncher = javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(21)) }
 }
 

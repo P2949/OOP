@@ -1,146 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="controllers.DataLoaderTest" tests="2" skipped="0" failures="2" errors="0" timestamp="2025-11-29T15:55:22.561Z" hostname="LAPTOP-ALTJ0RH5" time="0.088">
+<testsuite name="controllers.DataLoaderTest" tests="2" skipped="0" failures="1" errors="0" timestamp="2025-11-29T16:52:24.565Z" hostname="nixos" time="1.236">
   <properties/>
-  <testcase name="loadAllData_populatesAllCollectionsFromCsv()" classname="controllers.DataLoaderTest" time="0.055">
-    <failure message="org.mockito.exceptions.base.MockitoException: &#10;Mockito cannot mock this class: class controllers.DatabaseController.&#10;&#10;If you're not sure why you're getting this error, please open an issue on GitHub.&#10;&#10;&#10;Java               : 24&#10;JVM vendor name    : Oracle Corporation&#10;JVM vendor version : 24.0.1+9-30&#10;JVM name           : Java HotSpot(TM) 64-Bit Server VM&#10;JVM version        : 24.0.1+9-30&#10;JVM info           : mixed mode, sharing&#10;OS name            : Windows 11&#10;OS version         : 10.0&#10;&#10;&#10;You are seeing this disclaimer because Mockito is configured to create inlined mocks.&#10;You can learn about inline mocks and their limitations under item #39 of the Mockito class javadoc.&#10;&#10;Underlying exception : org.mockito.exceptions.base.MockitoException: Could not modify all classes [class java.lang.Object, class controllers.DatabaseController]" type="org.mockito.exceptions.base.MockitoException">org.mockito.exceptions.base.MockitoException: 
-Mockito cannot mock this class: class controllers.DatabaseController.
-
-If you're not sure why you're getting this error, please open an issue on GitHub.
-
-
-Java               : 24
-JVM vendor name    : Oracle Corporation
-JVM vendor version : 24.0.1+9-30
-JVM name           : Java HotSpot(TM) 64-Bit Server VM
-JVM version        : 24.0.1+9-30
-JVM info           : mixed mode, sharing
-OS name            : Windows 11
-OS version         : 10.0
-
-
-You are seeing this disclaimer because Mockito is configured to create inlined mocks.
-You can learn about inline mocks and their limitations under item #39 of the Mockito class javadoc.
-
-Underlying exception : org.mockito.exceptions.base.MockitoException: Could not modify all classes [class java.lang.Object, class controllers.DatabaseController]
-	at app//controllers.DataLoaderTest.loadAllData_populatesAllCollectionsFromCsv(DataLoaderTest.java:16)
-	at java.base@24.0.1/java.lang.reflect.Method.invoke(Method.java:565)
-	at java.base@24.0.1/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at java.base@24.0.1/java.util.ArrayList.forEach(ArrayList.java:1604)
-Caused by: org.mockito.exceptions.base.MockitoException: Could not modify all classes [class java.lang.Object, class controllers.DatabaseController]
-	at app//net.bytebuddy.TypeCache.findOrInsert(TypeCache.java:168)
-	at app//net.bytebuddy.TypeCache$WithInlineExpunction.findOrInsert(TypeCache.java:399)
-	at app//net.bytebuddy.TypeCache.findOrInsert(TypeCache.java:190)
-	at app//net.bytebuddy.TypeCache$WithInlineExpunction.findOrInsert(TypeCache.java:410)
-	... 4 more
-Caused by: java.lang.IllegalStateException: 
-Byte Buddy could not instrument all classes within the mock's type hierarchy
-
-This problem should never occur for javac-compiled classes. This problem has been observed for classes that are:
- - Compiled by older versions of scalac
- - Classes that are part of the Android distribution
-	at org.mockito.internal.creation.bytebuddy.InlineBytecodeGenerator.triggerRetransformation(InlineBytecodeGenerator.java:285)
-	at org.mockito.internal.creation.bytebuddy.InlineBytecodeGenerator.mockClass(InlineBytecodeGenerator.java:218)
-	at org.mockito.internal.creation.bytebuddy.TypeCachingBytecodeGenerator.lambda$mockClass$0(TypeCachingBytecodeGenerator.java:47)
-	at net.bytebuddy.TypeCache.findOrInsert(TypeCache.java:168)
-	at net.bytebuddy.TypeCache$WithInlineExpunction.findOrInsert(TypeCache.java:399)
-	at net.bytebuddy.TypeCache.findOrInsert(TypeCache.java:190)
-	at net.bytebuddy.TypeCache$WithInlineExpunction.findOrInsert(TypeCache.java:410)
-	at org.mockito.internal.creation.bytebuddy.TypeCachingBytecodeGenerator.mockClass(TypeCachingBytecodeGenerator.java:40)
-	at org.mockito.internal.creation.bytebuddy.InlineDelegateByteBuddyMockMaker.createMockType(InlineDelegateByteBuddyMockMaker.java:396)
-	at org.mockito.internal.creation.bytebuddy.InlineDelegateByteBuddyMockMaker.doCreateMock(InlineDelegateByteBuddyMockMaker.java:355)
-	at org.mockito.internal.creation.bytebuddy.InlineDelegateByteBuddyMockMaker.createMock(InlineDelegateByteBuddyMockMaker.java:334)
-	at org.mockito.internal.creation.bytebuddy.InlineByteBuddyMockMaker.createMock(InlineByteBuddyMockMaker.java:56)
-	at org.mockito.internal.util.MockUtil.createMock(MockUtil.java:99)
-	at org.mockito.internal.MockitoCore.mock(MockitoCore.java:88)
-	at org.mockito.Mockito.mock(Mockito.java:2101)
-	at org.mockito.Mockito.mock(Mockito.java:2016)
-	... 4 more
-Caused by: java.lang.IllegalArgumentException: Java 24 (68) is not supported by the current version of Byte Buddy which officially supports Java 21 (65) - update Byte Buddy or set net.bytebuddy.experimental as a VM property
-	at net.bytebuddy.utility.OpenedClassReader.of(OpenedClassReader.java:96)
-	at net.bytebuddy.dynamic.scaffold.TypeWriter$Default$ForInlining.create(TypeWriter.java:4011)
-	at net.bytebuddy.dynamic.scaffold.TypeWriter$Default.make(TypeWriter.java:2224)
-	at net.bytebuddy.dynamic.DynamicType$Builder$AbstractBase$UsingTypeWriter.make(DynamicType.java:4050)
-	at net.bytebuddy.dynamic.DynamicType$Builder$AbstractBase.make(DynamicType.java:3734)
-	at org.mockito.internal.creation.bytebuddy.InlineBytecodeGenerator.transform(InlineBytecodeGenerator.java:402)
-	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:257)
-	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
-	at java.instrument/sun.instrument.InstrumentationImpl.transform(InstrumentationImpl.java:594)
-	at java.instrument/sun.instrument.InstrumentationImpl.retransformClasses0(Native Method)
-	at java.instrument/sun.instrument.InstrumentationImpl.retransformClasses(InstrumentationImpl.java:221)
-	at org.mockito.internal.creation.bytebuddy.InlineBytecodeGenerator.triggerRetransformation(InlineBytecodeGenerator.java:281)
-	... 19 more
+  <testcase name="loadAllData_populatesAllCollectionsFromCsv()" classname="controllers.DataLoaderTest" time="1.204">
+    <failure message="java.lang.ClassCastException: class java.lang.String cannot be cast to class [Ljava.lang.String; (java.lang.String and [Ljava.lang.String; are in module java.base of loader 'bootstrap')" type="java.lang.ClassCastException">java.lang.ClassCastException: class java.lang.String cannot be cast to class [Ljava.lang.String; (java.lang.String and [Ljava.lang.String; are in module java.base of loader 'bootstrap')
+	at controllers.DataLoader.loadRooms(DataLoader.java:60)
+	at controllers.DataLoader.loadAllData(DataLoader.java:44)
+	at controllers.DataLoaderTest.loadAllData_populatesAllCollectionsFromCsv(DataLoaderTest.java:49)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 </failure>
   </testcase>
-  <testcase name="loadAllData_withEmptyCSVs_resultsInEmptyCollections()" classname="controllers.DataLoaderTest" time="0.026">
-    <failure message="org.mockito.exceptions.base.MockitoException: &#10;Mockito cannot mock this class: class controllers.DatabaseController.&#10;&#10;If you're not sure why you're getting this error, please open an issue on GitHub.&#10;&#10;&#10;Java               : 24&#10;JVM vendor name    : Oracle Corporation&#10;JVM vendor version : 24.0.1+9-30&#10;JVM name           : Java HotSpot(TM) 64-Bit Server VM&#10;JVM version        : 24.0.1+9-30&#10;JVM info           : mixed mode, sharing&#10;OS name            : Windows 11&#10;OS version         : 10.0&#10;&#10;&#10;You are seeing this disclaimer because Mockito is configured to create inlined mocks.&#10;You can learn about inline mocks and their limitations under item #39 of the Mockito class javadoc.&#10;&#10;Underlying exception : org.mockito.exceptions.base.MockitoException: Could not modify all classes [class java.lang.Object, class controllers.DatabaseController]" type="org.mockito.exceptions.base.MockitoException">org.mockito.exceptions.base.MockitoException: 
-Mockito cannot mock this class: class controllers.DatabaseController.
-
-If you're not sure why you're getting this error, please open an issue on GitHub.
-
-
-Java               : 24
-JVM vendor name    : Oracle Corporation
-JVM vendor version : 24.0.1+9-30
-JVM name           : Java HotSpot(TM) 64-Bit Server VM
-JVM version        : 24.0.1+9-30
-JVM info           : mixed mode, sharing
-OS name            : Windows 11
-OS version         : 10.0
-
-
-You are seeing this disclaimer because Mockito is configured to create inlined mocks.
-You can learn about inline mocks and their limitations under item #39 of the Mockito class javadoc.
-
-Underlying exception : org.mockito.exceptions.base.MockitoException: Could not modify all classes [class java.lang.Object, class controllers.DatabaseController]
-	at app//controllers.DataLoaderTest.loadAllData_withEmptyCSVs_resultsInEmptyCollections(DataLoaderTest.java:65)
-	at java.base@24.0.1/java.lang.reflect.Method.invoke(Method.java:565)
-	at java.base@24.0.1/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at java.base@24.0.1/java.util.ArrayList.forEach(ArrayList.java:1604)
-Caused by: org.mockito.exceptions.base.MockitoException: Could not modify all classes [class java.lang.Object, class controllers.DatabaseController]
-	at app//net.bytebuddy.TypeCache.findOrInsert(TypeCache.java:168)
-	at app//net.bytebuddy.TypeCache$WithInlineExpunction.findOrInsert(TypeCache.java:399)
-	at app//net.bytebuddy.TypeCache.findOrInsert(TypeCache.java:190)
-	at app//net.bytebuddy.TypeCache$WithInlineExpunction.findOrInsert(TypeCache.java:410)
-	... 4 more
-Caused by: java.lang.IllegalStateException: 
-Byte Buddy could not instrument all classes within the mock's type hierarchy
-
-This problem should never occur for javac-compiled classes. This problem has been observed for classes that are:
- - Compiled by older versions of scalac
- - Classes that are part of the Android distribution
-	at org.mockito.internal.creation.bytebuddy.InlineBytecodeGenerator.triggerRetransformation(InlineBytecodeGenerator.java:285)
-	at org.mockito.internal.creation.bytebuddy.InlineBytecodeGenerator.mockClass(InlineBytecodeGenerator.java:218)
-	at org.mockito.internal.creation.bytebuddy.TypeCachingBytecodeGenerator.lambda$mockClass$0(TypeCachingBytecodeGenerator.java:47)
-	at net.bytebuddy.TypeCache.findOrInsert(TypeCache.java:168)
-	at net.bytebuddy.TypeCache$WithInlineExpunction.findOrInsert(TypeCache.java:399)
-	at net.bytebuddy.TypeCache.findOrInsert(TypeCache.java:190)
-	at net.bytebuddy.TypeCache$WithInlineExpunction.findOrInsert(TypeCache.java:410)
-	at org.mockito.internal.creation.bytebuddy.TypeCachingBytecodeGenerator.mockClass(TypeCachingBytecodeGenerator.java:40)
-	at org.mockito.internal.creation.bytebuddy.InlineDelegateByteBuddyMockMaker.createMockType(InlineDelegateByteBuddyMockMaker.java:396)
-	at org.mockito.internal.creation.bytebuddy.InlineDelegateByteBuddyMockMaker.doCreateMock(InlineDelegateByteBuddyMockMaker.java:355)
-	at org.mockito.internal.creation.bytebuddy.InlineDelegateByteBuddyMockMaker.createMock(InlineDelegateByteBuddyMockMaker.java:334)
-	at org.mockito.internal.creation.bytebuddy.InlineByteBuddyMockMaker.createMock(InlineByteBuddyMockMaker.java:56)
-	at org.mockito.internal.util.MockUtil.createMock(MockUtil.java:99)
-	at org.mockito.internal.MockitoCore.mock(MockitoCore.java:88)
-	at org.mockito.Mockito.mock(Mockito.java:2101)
-	at org.mockito.Mockito.mock(Mockito.java:2016)
-	... 4 more
-Caused by: java.lang.IllegalArgumentException: Java 24 (68) is not supported by the current version of Byte Buddy which officially supports Java 21 (65) - update Byte Buddy or set net.bytebuddy.experimental as a VM property
-	at net.bytebuddy.utility.OpenedClassReader.of(OpenedClassReader.java:96)
-	at net.bytebuddy.dynamic.scaffold.TypeWriter$Default$ForInlining.create(TypeWriter.java:4011)
-	at net.bytebuddy.dynamic.scaffold.TypeWriter$Default.make(TypeWriter.java:2224)
-	at net.bytebuddy.dynamic.DynamicType$Builder$AbstractBase$UsingTypeWriter.make(DynamicType.java:4050)
-	at net.bytebuddy.dynamic.DynamicType$Builder$AbstractBase.make(DynamicType.java:3734)
-	at org.mockito.internal.creation.bytebuddy.InlineBytecodeGenerator.transform(InlineBytecodeGenerator.java:402)
-	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:257)
-	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
-	at java.instrument/sun.instrument.InstrumentationImpl.transform(InstrumentationImpl.java:594)
-	at java.instrument/sun.instrument.InstrumentationImpl.retransformClasses0(Native Method)
-	at java.instrument/sun.instrument.InstrumentationImpl.retransformClasses(InstrumentationImpl.java:221)
-	at org.mockito.internal.creation.bytebuddy.InlineBytecodeGenerator.triggerRetransformation(InlineBytecodeGenerator.java:281)
-	... 19 more
-</failure>
-  </testcase>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
+  <testcase name="loadAllData_withEmptyCSVs_resultsInEmptyCollections()" classname="controllers.DataLoaderTest" time="0.027"/>
+  <system-out><![CDATA[Loading data from CSV files...
+Loading data from CSV files...
+Loaded 0 rooms
+Loaded 0 lecturers
+Loaded 0 modules
+Loaded 0 programs
+Loaded 0 sessions
+Loaded 0 groups
+Loaded 0 students
+Data loading complete!
+]]></system-out>
+  <system-err><![CDATA[WARNING: A Java agent has been loaded dynamically (/home/p2949/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.14.4/3bf5ac1104554908cc623e40e58a00be37c35f36/byte-buddy-agent-1.14.4.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
 </testsuite>

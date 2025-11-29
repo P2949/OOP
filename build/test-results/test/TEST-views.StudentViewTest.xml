@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="views.StudentViewTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-11-29T15:55:25.779Z" hostname="LAPTOP-ALTJ0RH5" time="0.011">
-  <properties/>
-  <testcase name="studentViewIsInterface()" classname="views.StudentViewTest" time="0.002"/>
-  <testcase name="interfaceHasExpectedMethods()" classname="views.StudentViewTest" time="0.008"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

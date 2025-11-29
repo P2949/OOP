@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="app.MainTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-11-29T15:55:25.757Z" hostname="LAPTOP-ALTJ0RH5" time="0.002">
-  <properties/>
-  <testcase name="main_withInvalidOption_printsInvalidOptionAndExits()" classname="app.MainTest" time="0.002"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
