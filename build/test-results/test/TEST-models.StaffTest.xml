@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="models.StaffTest" tests="4" skipped="0" failures="1" errors="0" timestamp="2025-11-29T15:55:24.961Z" hostname="LAPTOP-ALTJ0RH5" time="0.007">
+  <properties/>
+  <testcase name="constructor_initializesAllFields()" classname="models.StaffTest" time="0.002">
+    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;SID123&gt; but was: &lt;SID1232&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;SID123&gt; but was: &lt;SID1232&gt;
+	at app//org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at app//org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at app//org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at app//org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at app//org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at app//org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1141)
+	at app//models.StaffTest.constructor_initializesAllFields(StaffTest.java:21)
+	at java.base@24.0.1/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base@24.0.1/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base@24.0.1/java.util.ArrayList.forEach(ArrayList.java:1604)
+</failure>
+  </testcase>
+  <testcase name="setStaffID_updatesCorrectly()" classname="models.StaffTest" time="0.001"/>
+  <testcase name="setDepartment_updatesCorrectly()" classname="models.StaffTest" time="0.001"/>
+  <testcase name="inheritedSettersWork()" classname="models.StaffTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

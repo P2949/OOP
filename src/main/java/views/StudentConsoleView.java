@@ -42,7 +42,7 @@ public class StudentConsoleView implements StudentView {
     }
 
     @Override
-    public void displayModules(@NotNull List<Module> modules) {
+    public void displayModules(@NotNull List<models.Module> modules) {
         if (modules.isEmpty()) {
             System.out.println("No modules found.");
             return;

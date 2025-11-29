@@ -57,7 +57,7 @@ public class StudentController {
         }
     }
 
-    public List<Module> getModules() {
+    public List<models.Module> getModules() {
         if (student.getProgram() == null) {
             return new ArrayList<>();
         }

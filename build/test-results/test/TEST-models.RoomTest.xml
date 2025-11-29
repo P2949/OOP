@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="models.RoomTest" tests="11" skipped="0" failures="3" errors="0" timestamp="2025-11-29T15:55:24.623Z" hostname="LAPTOP-ALTJ0RH5" time="0.116">
+  <properties/>
+  <testcase name="getSessions_returnsDefensiveCopy()" classname="models.RoomTest" time="0.026">
+    <failure message="org.mockito.exceptions.base.MockitoException: &#10;Mockito cannot mock this class: class models.Group.&#10;&#10;If you're not sure why you're getting this error, please open an issue on GitHub.&#10;&#10;&#10;Java               : 24&#10;JVM vendor name    : Oracle Corporation&#10;JVM vendor version : 24.0.1+9-30&#10;JVM name           : Java HotSpot(TM) 64-Bit Server VM&#10;JVM version        : 24.0.1+9-30&#10;JVM info           : mixed mode, sharing&#10;OS name            : Windows 11&#10;OS version         : 10.0&#10;&#10;&#10;You are seeing this disclaimer because Mockito is configured to create inlined mocks.&#10;You can learn about inline mocks and their limitations under item #39 of the Mockito class javadoc.&#10;&#10;Underlying exception : org.mockito.exceptions.base.MockitoException: Could not modify all classes [class models.Group, class java.lang.Object, interface models.CSVModel]" type="org.mockito.exceptions.base.MockitoException">org.mockito.exceptions.base.MockitoException: 
+Mockito cannot mock this class: class models.Group.
+
+If you're not sure why you're getting this error, please open an issue on GitHub.
+
+
+Java               : 24
+JVM vendor name    : Oracle Corporation
+JVM vendor version : 24.0.1+9-30
+JVM name           : Java HotSpot(TM) 64-Bit Server VM
+JVM version        : 24.0.1+9-30
+JVM info           : mixed mode, sharing
+OS name            : Windows 11
+OS version         : 10.0
+
+
+You are seeing this disclaimer because Mockito is configured to create inlined mocks.
+You can learn about inline mocks and their limitations under item #39 of the Mockito class javadoc.
+
+Underlying exception : org.mockito.exceptions.base.MockitoException: Could not modify all classes [class models.Group, class java.lang.Object, interface models.CSVModel]
+	at app//models.RoomTest.getSessions_returnsDefensiveCopy(RoomTest.java:64)
+	at java.base@24.0.1/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base@24.0.1/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base@24.0.1/java.util.ArrayList.forEach(ArrayList.java:1604)
+Caused by: org.mockito.exceptions.base.MockitoException: Could not modify all classes [class models.Group, class java.lang.Object, interface models.CSVModel]
+	at app//net.bytebuddy.TypeCache.findOrInsert(TypeCache.java:168)
+	at app//net.bytebuddy.TypeCache$WithInlineExpunction.findOrInsert(TypeCache.java:399)
+	at app//net.bytebuddy.TypeCache.findOrInsert(TypeCache.java:190)
+	at app//net.bytebuddy.TypeCache$WithInlineExpunction.findOrInsert(TypeCache.java:410)
+	... 4 more
+Caused by: java.lang.IllegalStateException: 
+Byte Buddy could not instrument all classes within the mock's type hierarchy
+
+This problem should never occur for javac-compiled classes. This problem has been observed for classes that are:
+ - Compiled by older versions of scalac
+ - Classes that are part of the Android distribution
+	at org.mockito.internal.creation.bytebuddy.InlineBytecodeGenerator.triggerRetransformation(InlineBytecodeGenerator.java:285)
+	at org.mockito.internal.creation.bytebuddy.InlineBytecodeGenerator.mockClass(InlineBytecodeGenerator.java:218)
+	at org.mockito.internal.creation.bytebuddy.TypeCachingBytecodeGenerator.lambda$mockClass$0(TypeCachingBytecodeGenerator.java:47)
+	at net.bytebuddy.TypeCache.findOrInsert(TypeCache.java:168)
+	at net.bytebuddy.TypeCache$WithInlineExpunction.findOrInsert(TypeCache.java:399)
+	at net.bytebuddy.TypeCache.findOrInsert(TypeCache.java:190)
+	at net.bytebuddy.TypeCache$WithInlineExpunction.findOrInsert(TypeCache.java:410)
+	at org.mockito.internal.creation.bytebuddy.TypeCachingBytecodeGenerator.mockClass(TypeCachingBytecodeGenerator.java:40)
+	at org.mockito.internal.creation.bytebuddy.InlineDelegateByteBuddyMockMaker.createMockType(InlineDelegateByteBuddyMockMaker.java:396)
+	at org.mockito.internal.creation.bytebuddy.InlineDelegateByteBuddyMockMaker.doCreateMock(InlineDelegateByteBuddyMockMaker.java:355)
+	at org.mockito.internal.creation.bytebuddy.InlineDelegateByteBuddyMockMaker.createMock(InlineDelegateByteBuddyMockMaker.java:334)
+	at org.mockito.internal.creation.bytebuddy.InlineByteBuddyMockMaker.createMock(InlineByteBuddyMockMaker.java:56)
+	at org.mockito.internal.util.MockUtil.createMock(MockUtil.java:99)
+	at org.mockito.internal.MockitoCore.mock(MockitoCore.java:88)
+	at org.mockito.Mockito.mock(Mockito.java:2101)
+	at org.mockito.Mockito.mock(Mockito.java:2016)
+	... 4 more
+Caused by: java.lang.IllegalArgumentException: Java 24 (68) is not supported by the current version of Byte Buddy which officially supports Java 21 (65) - update Byte Buddy or set net.bytebuddy.experimental as a VM property
+	at net.bytebuddy.utility.OpenedClassReader.of(OpenedClassReader.java:96)
+	at net.bytebuddy.dynamic.scaffold.TypeWriter$Default$ForInlining.create(TypeWriter.java:4011)
+	at net.bytebuddy.dynamic.scaffold.TypeWriter$Default.make(TypeWriter.java:2224)
+	at net.bytebuddy.dynamic.DynamicType$Builder$AbstractBase$UsingTypeWriter.make(DynamicType.java:4050)
+	at net.bytebuddy.dynamic.DynamicType$Builder$AbstractBase.make(DynamicType.java:3734)
+	at org.mockito.internal.creation.bytebuddy.InlineBytecodeGenerator.transform(InlineBytecodeGenerator.java:402)
+	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:257)
+	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
+	at java.instrument/sun.instrument.InstrumentationImpl.transform(InstrumentationImpl.java:594)
+	at java.instrument/sun.instrument.InstrumentationImpl.retransformClasses0(Native Method)
+	at java.instrument/sun.instrument.InstrumentationImpl.retransformClasses(InstrumentationImpl.java:221)
+	at org.mockito.internal.creation.bytebuddy.InlineBytecodeGenerator.triggerRetransformation(InlineBytecodeGenerator.java:281)
+	... 19 more
+</failure>
+  </testcase>
+  <testcase name="setBuilding_updatesCorrectly()" classname="models.RoomTest" time="0.002"/>
+  <testcase name="setOccupied_updatesStateCorrectly()" classname="models.RoomTest" time="0.001"/>
+  <testcase name="addSession_addsGroup()" classname="models.RoomTest" time="0.026">
+    <failure message="org.mockito.exceptions.base.MockitoException: &#10;Mockito cannot mock this class: class models.Group.&#10;&#10;If you're not sure why you're getting this error, please open an issue on GitHub.&#10;&#10;&#10;Java               : 24&#10;JVM vendor name    : Oracle Corporation&#10;JVM vendor version : 24.0.1+9-30&#10;JVM name           : Java HotSpot(TM) 64-Bit Server VM&#10;JVM version        : 24.0.1+9-30&#10;JVM info           : mixed mode, sharing&#10;OS name            : Windows 11&#10;OS version         : 10.0&#10;&#10;&#10;You are seeing this disclaimer because Mockito is configured to create inlined mocks.&#10;You can learn about inline mocks and their limitations under item #39 of the Mockito class javadoc.&#10;&#10;Underlying exception : org.mockito.exceptions.base.MockitoException: Could not modify all classes [class models.Group, class java.lang.Object, interface models.CSVModel]" type="org.mockito.exceptions.base.MockitoException">org.mockito.exceptions.base.MockitoException: 
+Mockito cannot mock this class: class models.Group.
+
+If you're not sure why you're getting this error, please open an issue on GitHub.
+
+
+Java               : 24
+JVM vendor name    : Oracle Corporation
+JVM vendor version : 24.0.1+9-30
+JVM name           : Java HotSpot(TM) 64-Bit Server VM
+JVM version        : 24.0.1+9-30
+JVM info           : mixed mode, sharing
+OS name            : Windows 11
+OS version         : 10.0
+
+
+You are seeing this disclaimer because Mockito is configured to create inlined mocks.
+You can learn about inline mocks and their limitations under item #39 of the Mockito class javadoc.
+
+Underlying exception : org.mockito.exceptions.base.MockitoException: Could not modify all classes [class models.Group, class java.lang.Object, interface models.CSVModel]
+	at app//models.RoomTest.addSession_addsGroup(RoomTest.java:76)
+	at java.base@24.0.1/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base@24.0.1/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base@24.0.1/java.util.ArrayList.forEach(ArrayList.java:1604)
+Caused by: org.mockito.exceptions.base.MockitoException: Could not modify all classes [class models.Group, class java.lang.Object, interface models.CSVModel]
+	at app//net.bytebuddy.TypeCache.findOrInsert(TypeCache.java:168)
+	at app//net.bytebuddy.TypeCache$WithInlineExpunction.findOrInsert(TypeCache.java:399)
+	at app//net.bytebuddy.TypeCache.findOrInsert(TypeCache.java:190)
+	at app//net.bytebuddy.TypeCache$WithInlineExpunction.findOrInsert(TypeCache.java:410)
+	... 4 more
+Caused by: java.lang.IllegalStateException: 
+Byte Buddy could not instrument all classes within the mock's type hierarchy
+
+This problem should never occur for javac-compiled classes. This problem has been observed for classes that are:
+ - Compiled by older versions of scalac
+ - Classes that are part of the Android distribution
+	at org.mockito.internal.creation.bytebuddy.InlineBytecodeGenerator.triggerRetransformation(InlineBytecodeGenerator.java:285)
+	at org.mockito.internal.creation.bytebuddy.InlineBytecodeGenerator.mockClass(InlineBytecodeGenerator.java:218)
+	at org.mockito.internal.creation.bytebuddy.TypeCachingBytecodeGenerator.lambda$mockClass$0(TypeCachingBytecodeGenerator.java:47)
+	at net.bytebuddy.TypeCache.findOrInsert(TypeCache.java:168)
+	at net.bytebuddy.TypeCache$WithInlineExpunction.findOrInsert(TypeCache.java:399)
+	at net.bytebuddy.TypeCache.findOrInsert(TypeCache.java:190)
+	at net.bytebuddy.TypeCache$WithInlineExpunction.findOrInsert(TypeCache.java:410)
+	at org.mockito.internal.creation.bytebuddy.TypeCachingBytecodeGenerator.mockClass(TypeCachingBytecodeGenerator.java:40)
+	at org.mockito.internal.creation.bytebuddy.InlineDelegateByteBuddyMockMaker.createMockType(InlineDelegateByteBuddyMockMaker.java:396)
+	at org.mockito.internal.creation.bytebuddy.InlineDelegateByteBuddyMockMaker.doCreateMock(InlineDelegateByteBuddyMockMaker.java:355)
+	at org.mockito.internal.creation.bytebuddy.InlineDelegateByteBuddyMockMaker.createMock(InlineDelegateByteBuddyMockMaker.java:334)
+	at org.mockito.internal.creation.bytebuddy.InlineByteBuddyMockMaker.createMock(InlineByteBuddyMockMaker.java:56)
+	at org.mockito.internal.util.MockUtil.createMock(MockUtil.java:99)
+	at org.mockito.internal.MockitoCore.mock(MockitoCore.java:88)
+	at org.mockito.Mockito.mock(Mockito.java:2101)
+	at org.mockito.Mockito.mock(Mockito.java:2016)
+	... 4 more
+Caused by: java.lang.IllegalArgumentException: Java 24 (68) is not supported by the current version of Byte Buddy which officially supports Java 21 (65) - update Byte Buddy or set net.bytebuddy.experimental as a VM property
+	at net.bytebuddy.utility.OpenedClassReader.of(OpenedClassReader.java:96)
+	at net.bytebuddy.dynamic.scaffold.TypeWriter$Default$ForInlining.create(TypeWriter.java:4011)
+	at net.bytebuddy.dynamic.scaffold.TypeWriter$Default.make(TypeWriter.java:2224)
+	at net.bytebuddy.dynamic.DynamicType$Builder$AbstractBase$UsingTypeWriter.make(DynamicType.java:4050)
+	at net.bytebuddy.dynamic.DynamicType$Builder$AbstractBase.make(DynamicType.java:3734)
+	at org.mockito.internal.creation.bytebuddy.InlineBytecodeGenerator.transform(InlineBytecodeGenerator.java:402)
+	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:257)
+	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
+	at java.instrument/sun.instrument.InstrumentationImpl.transform(InstrumentationImpl.java:594)
+	at java.instrument/sun.instrument.InstrumentationImpl.retransformClasses0(Native Method)
+	at java.instrument/sun.instrument.InstrumentationImpl.retransformClasses(InstrumentationImpl.java:221)
+	at org.mockito.internal.creation.bytebuddy.InlineBytecodeGenerator.triggerRetransformation(InlineBytecodeGenerator.java:281)
+	... 19 more
+</failure>
+  </testcase>
+  <testcase name="constructor_initializesFieldsCorrectly()" classname="models.RoomTest" time="0.003"/>
+  <testcase name="setCapacity_updatesCorrectly()" classname="models.RoomTest" time="0.001"/>
+  <testcase name="setType_updatesRoomType()" classname="models.RoomTest" time="0.001"/>
+  <testcase name="removeSession_removesGroup()" classname="models.RoomTest" time="0.027">
+    <failure message="org.mockito.exceptions.base.MockitoException: &#10;Mockito cannot mock this class: class models.Group.&#10;&#10;If you're not sure why you're getting this error, please open an issue on GitHub.&#10;&#10;&#10;Java               : 24&#10;JVM vendor name    : Oracle Corporation&#10;JVM vendor version : 24.0.1+9-30&#10;JVM name           : Java HotSpot(TM) 64-Bit Server VM&#10;JVM version        : 24.0.1+9-30&#10;JVM info           : mixed mode, sharing&#10;OS name            : Windows 11&#10;OS version         : 10.0&#10;&#10;&#10;You are seeing this disclaimer because Mockito is configured to create inlined mocks.&#10;You can learn about inline mocks and their limitations under item #39 of the Mockito class javadoc.&#10;&#10;Underlying exception : org.mockito.exceptions.base.MockitoException: Could not modify all classes [class models.Group, class java.lang.Object, interface models.CSVModel]" type="org.mockito.exceptions.base.MockitoException">org.mockito.exceptions.base.MockitoException: 
+Mockito cannot mock this class: class models.Group.
+
+If you're not sure why you're getting this error, please open an issue on GitHub.
+
+
+Java               : 24
+JVM vendor name    : Oracle Corporation
+JVM vendor version : 24.0.1+9-30
+JVM name           : Java HotSpot(TM) 64-Bit Server VM
+JVM version        : 24.0.1+9-30
+JVM info           : mixed mode, sharing
+OS name            : Windows 11
+OS version         : 10.0
+
+
+You are seeing this disclaimer because Mockito is configured to create inlined mocks.
+You can learn about inline mocks and their limitations under item #39 of the Mockito class javadoc.
+
+Underlying exception : org.mockito.exceptions.base.MockitoException: Could not modify all classes [class models.Group, class java.lang.Object, interface models.CSVModel]
+	at app//models.RoomTest.removeSession_removesGroup(RoomTest.java:85)
+	at java.base@24.0.1/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base@24.0.1/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base@24.0.1/java.util.ArrayList.forEach(ArrayList.java:1604)
+Caused by: org.mockito.exceptions.base.MockitoException: Could not modify all classes [class models.Group, class java.lang.Object, interface models.CSVModel]
+	at app//net.bytebuddy.TypeCache.findOrInsert(TypeCache.java:168)
+	at app//net.bytebuddy.TypeCache$WithInlineExpunction.findOrInsert(TypeCache.java:399)
+	at app//net.bytebuddy.TypeCache.findOrInsert(TypeCache.java:190)
+	at app//net.bytebuddy.TypeCache$WithInlineExpunction.findOrInsert(TypeCache.java:410)
+	... 4 more
+Caused by: java.lang.IllegalStateException: 
+Byte Buddy could not instrument all classes within the mock's type hierarchy
+
+This problem should never occur for javac-compiled classes. This problem has been observed for classes that are:
+ - Compiled by older versions of scalac
+ - Classes that are part of the Android distribution
+	at org.mockito.internal.creation.bytebuddy.InlineBytecodeGenerator.triggerRetransformation(InlineBytecodeGenerator.java:285)
+	at org.mockito.internal.creation.bytebuddy.InlineBytecodeGenerator.mockClass(InlineBytecodeGenerator.java:218)
+	at org.mockito.internal.creation.bytebuddy.TypeCachingBytecodeGenerator.lambda$mockClass$0(TypeCachingBytecodeGenerator.java:47)
+	at net.bytebuddy.TypeCache.findOrInsert(TypeCache.java:168)
+	at net.bytebuddy.TypeCache$WithInlineExpunction.findOrInsert(TypeCache.java:399)
+	at net.bytebuddy.TypeCache.findOrInsert(TypeCache.java:190)
+	at net.bytebuddy.TypeCache$WithInlineExpunction.findOrInsert(TypeCache.java:410)
+	at org.mockito.internal.creation.bytebuddy.TypeCachingBytecodeGenerator.mockClass(TypeCachingBytecodeGenerator.java:40)
+	at org.mockito.internal.creation.bytebuddy.InlineDelegateByteBuddyMockMaker.createMockType(InlineDelegateByteBuddyMockMaker.java:396)
+	at org.mockito.internal.creation.bytebuddy.InlineDelegateByteBuddyMockMaker.doCreateMock(InlineDelegateByteBuddyMockMaker.java:355)
+	at org.mockito.internal.creation.bytebuddy.InlineDelegateByteBuddyMockMaker.createMock(InlineDelegateByteBuddyMockMaker.java:334)
+	at org.mockito.internal.creation.bytebuddy.InlineByteBuddyMockMaker.createMock(InlineByteBuddyMockMaker.java:56)
+	at org.mockito.internal.util.MockUtil.createMock(MockUtil.java:99)
+	at org.mockito.internal.MockitoCore.mock(MockitoCore.java:88)
+	at org.mockito.Mockito.mock(Mockito.java:2101)
+	at org.mockito.Mockito.mock(Mockito.java:2016)
+	... 4 more
+Caused by: java.lang.IllegalArgumentException: Java 24 (68) is not supported by the current version of Byte Buddy which officially supports Java 21 (65) - update Byte Buddy or set net.bytebuddy.experimental as a VM property
+	at net.bytebuddy.utility.OpenedClassReader.of(OpenedClassReader.java:96)
+	at net.bytebuddy.dynamic.scaffold.TypeWriter$Default$ForInlining.create(TypeWriter.java:4011)
+	at net.bytebuddy.dynamic.scaffold.TypeWriter$Default.make(TypeWriter.java:2224)
+	at net.bytebuddy.dynamic.DynamicType$Builder$AbstractBase$UsingTypeWriter.make(DynamicType.java:4050)
+	at net.bytebuddy.dynamic.DynamicType$Builder$AbstractBase.make(DynamicType.java:3734)
+	at org.mockito.internal.creation.bytebuddy.InlineBytecodeGenerator.transform(InlineBytecodeGenerator.java:402)
+	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:257)
+	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
+	at java.instrument/sun.instrument.InstrumentationImpl.transform(InstrumentationImpl.java:594)
+	at java.instrument/sun.instrument.InstrumentationImpl.retransformClasses0(Native Method)
+	at java.instrument/sun.instrument.InstrumentationImpl.retransformClasses(InstrumentationImpl.java:221)
+	at org.mockito.internal.creation.bytebuddy.InlineBytecodeGenerator.triggerRetransformation(InlineBytecodeGenerator.java:281)
+	... 19 more
+</failure>
+  </testcase>
+  <testcase name="toCSVRow_outputsCorrectFormat()" classname="models.RoomTest" time="0.004"/>
+  <testcase name="setRoomNumber_updatesCorrectly()" classname="models.RoomTest" time="0.002"/>
+  <testcase name="getCSVHeader_isCorrect()" classname="models.RoomTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

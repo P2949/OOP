@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="models.PersonTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-11-29T15:55:25.771Z" hostname="LAPTOP-ALTJ0RH5" time="0.005">
+  <properties/>
+  <testcase name="setName_updatesName()" classname="models.PersonTest" time="0.001"/>
+  <testcase name="constructor_initializesFields()" classname="models.PersonTest" time="0.001"/>
+  <testcase name="setAge_updatesAge()" classname="models.PersonTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
